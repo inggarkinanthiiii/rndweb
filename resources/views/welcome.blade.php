@@ -192,7 +192,7 @@
         <a href="/portfolio">Portfolio</a>
         <a href="/property">Property</a>
         <a href="/homestay">Homestay</a>
-        <a href="#contact">Contact</a>
+        <a href="/contact">Contact</a>
     </nav>
 
     <!-- HEADER DENGAN LOGO -->

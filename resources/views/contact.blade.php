@@ -11,6 +11,13 @@
       background: #fff;
       color: #111;
       overflow-x: hidden;
+      animation: fadeInBody 1s ease forwards;
+    }
+
+    /* Fade-in animasi untuk body */
+    @keyframes fadeInBody {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* NAVIGATION */
@@ -20,6 +27,7 @@
       display: flex;
       gap: 20px;
       justify-content: center;
+      animation: fadeInUp 0.8s ease forwards;
     }
 
     nav a {
@@ -44,6 +52,7 @@
       padding: 12px 40px;
       border-bottom: 2px solid #eee;
       font-weight: bold;
+      animation: fadeInUp 1s ease forwards;
     }
 
     .logo-group {
@@ -70,6 +79,13 @@
       max-width: 1200px;
       margin: auto;
       padding: 40px 20px;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    h1, h2, p {
+      opacity: 0;
+      animation: fadeInUp 1.5s ease forwards;
+      animation-delay: 0.4s;
     }
 
     h1 {
@@ -92,6 +108,8 @@
       display: flex;
       gap: 40px;
       flex-wrap: wrap;
+      animation: fadeInUp 1.8s ease forwards;
+      opacity: 0;
     }
 
     /* FORM */
@@ -109,6 +127,12 @@
       border-radius: 5px;
       font-size: 16px;
       resize: vertical;
+      transition: border-color 0.3s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #b40000;
+      box-shadow: 0 0 8px rgba(180,0,0,0.5);
     }
 
     button {
@@ -119,11 +143,13 @@
       font-weight: bold;
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.3s;
     }
 
     button:hover {
       background-color: #7e0000;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(126,0,0,0.6);
     }
 
     /* MAP */
@@ -134,6 +160,12 @@
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .map-container:hover {
+      box-shadow: 0 8px 20px rgba(180,0,0,0.7);
+      transform: scale(1.03);
     }
 
     .map-container iframe {
@@ -152,6 +184,8 @@
       max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
+      animation: fadeInUp 2s ease forwards;
+      opacity: 0;
     }
 
     .contact-info h4 {
@@ -171,6 +205,8 @@
       text-align: center;
       padding: 20px;
       margin-top: 60px;
+      animation: fadeInUp 2.2s ease forwards;
+      opacity: 0;
     }
 
     /* RESPONSIVE */
@@ -186,6 +222,18 @@
         height: auto;
       }
     }
+
+    /* Reusable fadeInUp animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -193,7 +241,7 @@
   <!-- Menu -->
   <nav>
     <a href="/home">Home</a>
-    <a href="/portfolio">Portfolio</a>
+    <a href="/layanan">Layanan</a>
     <a href="/property">Property</a>
     <a href="/homestay">Homestay</a>
     <a href="/contact" class="active">Contact</a>
@@ -227,7 +275,7 @@
       </form>
 
       <!-- Peta Google Maps di samping form -->
-      <div class="map-container">
+      <div class="map-container" title="Hover untuk zoom peta">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8350323376567!2d110.3893968!3d-7.8080157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a578dfb0a4d4f%3A0x95c3c6c0fdcd8df9!2sBaciro%2C%20Kec.%20Gondokusuman%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1716890985723!5m2!1sid!2sid"
           loading="lazy"
@@ -247,7 +295,7 @@
   </div>
 
   <footer>
-    <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
+    &copy; {{ date('Y') }} RND Properti - All Rights Reserved
   </footer>
 
 </body>
