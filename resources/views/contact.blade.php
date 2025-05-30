@@ -1,302 +1,469 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact - RND Properti</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #fff;
-      color: #111;
-      overflow-x: hidden;
-      animation: fadeInBody 1s ease forwards;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - RND Properti</title>
 
-    /* Fade-in animasi untuk body */
-    @keyframes fadeInBody {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    /* NAVIGATION */
-    nav {
-      background: #111;
-      padding: 10px 40px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      animation: fadeInUp 0.8s ease forwards;
-    }
+    <style>
+        /* ... (CSS Anda sebelumnya) ... */
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
+        /* Variabel CSS untuk Warna */
+        :root {
+            --primary-color: #b40000; /* Merah gelap */
+            --secondary-color: gold; /* Kuning aksen */
+            --dark-bg: #111; /* Latar belakang gelap */
+            --light-bg: #fff; /* Latar belakang terang */
+            --text-dark: #111; /* Teks gelap */
+            --text-light: white; /* Teks terang */
+            --border-color: #eee;
+        }
 
-    nav a:hover,
-    nav a.active {
-      background: #444;
-    }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif; /* Menggunakan Inter */
+            background: var(--light-bg); /* Menggunakan variabel */
+            color: var(--text-dark); /* Menggunakan variabel */
+            overflow-x: hidden;
+            animation: fadeInBody 1s ease forwards;
+        }
 
-    /* HEADER */
-    .top-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 40px;
-      border-bottom: 2px solid #eee;
-      font-weight: bold;
-      animation: fadeInUp 1s ease forwards;
-    }
+        /* Fade-in animasi untuk body */
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .logo-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        /* DEFINISI ANIMASI (dari kode Anda sebelumnya) */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .logo-group img {
-      height: 36px;
-    }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .logo-group span {
-      font-size: 16px;
-      letter-spacing: 1px;
-    }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-    .year {
-      font-size: 14px;
-    }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-    /* CONTAINER */
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 40px 20px;
-      animation: fadeInUp 1.2s ease forwards;
-    }
+        /* --- HEADER & NAVIGASI BARU (Mengikuti Konsep Gambar) --- */
+        .main-header {
+            background-color: var(--light-bg); /* Latar belakang putih */
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between; /* Logo kiri, Navigasi kanan */
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+            animation: fadeInDown 1s ease-out forwards; /* Animasi untuk header */
+            position: relative; /* Untuk z-index */
+            z-index: 1000; /* Pastikan di atas konten lain */
+        }
 
-    h1, h2, p {
-      opacity: 0;
-      animation: fadeInUp 1.5s ease forwards;
-      animation-delay: 0.4s;
-    }
+        .main-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    h1 {
-      color: #b40000;
-      margin-bottom: 10px;
-    }
+        .main-header .logo-area img {
+            height: 40px; /* Ukuran logo */
+        }
 
-    h2 {
-      color: #b40000;
-      margin-bottom: 5px;
-    }
+        .main-header .company-info {
+            display: flex;
+            flex-direction: column;
+        }
 
-    p.intro {
-      margin-top: 0;
-      margin-bottom: 30px;
-    }
+        .main-header .company-name {
+            font-family: 'Poppins', sans-serif; /* Menggunakan Poppins untuk nama perusahaan */
+            font-size: 1.5rem; /* Ukuran font lebih besar untuk nama perusahaan */
+            font-weight: 700;
+            color: var(--primary-color); /* Warna merah untuk nama perusahaan */
+            line-height: 1; /* Hapus spasi ekstra */
+        }
 
-    /* FLEX CONTAINER FOR FORM AND MAP SIDE-BY-SIDE */
-    .contact-wrapper {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      animation: fadeInUp 1.8s ease forwards;
-      opacity: 0;
-    }
+        .main-header .tagline {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 2px; /* Sesuaikan posisi vertikal */
+            font-weight: 500;
+        }
 
-    /* FORM */
-    form {
-      flex: 1 1 500px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 600px;
-    }
+        .main-header .main-nav {
+            display: flex;
+            gap: 25px; /* Jarak antara item navigasi */
+        }
 
-    input, textarea {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-      resize: vertical;
-      transition: border-color 0.3s;
-    }
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #b40000;
-      box-shadow: 0 0 8px rgba(180,0,0,0.5);
-    }
+        .main-header .main-nav a {
+            color: #555; /* Warna teks link lebih gelap */
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: color 0.3s ease; /* Hanya transisi warna teks */
+        }
 
-    button {
-      background-color: #b40000;
-      color: white;
-      border: none;
-      padding: 12px;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-    }
+        .main-header .main-nav a:hover,
+        .main-header .main-nav a.active {
+            color: var(--primary-color); /* Warna merah saat hover/aktif */
+            /* Tidak ada background color pada hover/active, hanya perubahan warna teks */
+        }
+        /* --- AKHIR HEADER & NAVIGASI BARU --- */
 
-    button:hover {
-      background-color: #7e0000;
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(126,0,0,0.6);
-    }
+        /* HERO SECTION UNTUK CONTACT (MIRIP DENGAN PORTFOLIO) */
+        .contact-hero {
+            position: relative;
+            width: 100%;
+            min-height: 300px; /* Sesuaikan tinggi sesuai kebutuhan */
+            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Ganti dengan gambar hero untuk halaman contact */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-align: left;
+        }
 
-    /* MAP */
-    .map-container {
-      flex: 1 1 400px;
-      min-width: 300px;
-      height: 365px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      transition: box-shadow 0.3s, transform 0.3s;
-      cursor: pointer;
-    }
-    .map-container:hover {
-      box-shadow: 0 8px 20px rgba(180,0,0,0.7);
-      transform: scale(1.03);
-    }
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Opasitas overlay */
+            z-index: 0;
+        }
 
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+        .contact-hero .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            opacity: 0; /* Untuk animasi */
+            animation: fadeInLeft 1.2s ease-out forwards;
+            max-width: 1200px;
+            margin-left: 0;
+            margin-right: auto;
+            padding-left: 10px;
+        }
 
-    /* CONTACT INFO */
-    .contact-info {
-      margin-top: 40px;
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      color: #333;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-      animation: fadeInUp 2s ease forwards;
-      opacity: 0;
-    }
+        .contact-hero .hero-content .breadcrumb {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
 
-    .contact-info h4 {
-      margin-bottom: 15px;
-      color: #b40000;
-    }
+        .contact-hero .hero-content .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-    .contact-info p {
-      font-size: 16px;
-      line-height: 1.5;
-    }
+        .contact-hero .hero-content .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
 
-    /* FOOTER */
-    footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 60px;
-      animation: fadeInUp 2.2s ease forwards;
-      opacity: 0;
-    }
+        .contact-hero .hero-content .breadcrumb span {
+            color: white;
+            font-weight: 600;
+        }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .contact-wrapper {
-        flex-direction: column;
-      }
-      .map-container, form {
-        max-width: 100%;
-        height: 300px;
-      }
-      form {
-        height: auto;
-      }
-    }
+        .contact-hero .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+            color: white;
+        }
+        /* AKHIR HERO SECTION */
 
-    /* Reusable fadeInUp animation */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        h1, h2, p {
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        h1 {
+            color: var(--primary-color); /* Menggunakan variabel */
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--primary-color); /* Menggunakan variabel */
+            margin-bottom: 5px;
+        }
+
+        p.intro {
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* FLEX CONTAINER FOR FORM AND MAP SIDE-BY-SIDE */
+        .contact-wrapper {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.8s ease forwards;
+            opacity: 0;
+        }
+
+        /* FORM */
+        form {
+            flex: 1 1 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 600px;
+        }
+
+        input, textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color); /* Menggunakan variabel */
+            box-shadow: 0 0 8px rgba(180,0,0,0.5);
+        }
+
+        button {
+            background-color: var(--primary-color); /* Menggunakan variabel */
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #7e0000;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(126,0,0,0.6);
+        }
+
+        /* MAP */
+        .map-container {
+            flex: 1 1 400px;
+            min-width: 300px;
+            height: 365px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+        .map-container:hover {
+            box-shadow: 0 8px 20px rgba(180,0,0,0.7);
+            transform: scale(1.03);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* CONTACT INFO */
+        .contact-info {
+            margin-top: 40px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            color: #333;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 2s ease forwards;
+            opacity: 0;
+        }
+
+        .contact-info h4 {
+            margin-bottom: 15px;
+            color: var(--primary-color); /* Menggunakan variabel */
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark-bg); /* Menggunakan variabel */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            animation: fadeInUp 2.2s ease forwards;
+            opacity: 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .main-header { /* New: Responsive for main-header */
+                flex-direction: column;
+                text-align: center;
+                padding: 15px 20px;
+            }
+            .main-header .logo-area { /* New: Responsive for logo-area */
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            .main-header .main-nav { /* New: Responsive for main-nav */
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .contact-wrapper {
+                flex-direction: column;
+            }
+            .map-container, form {
+                max-width: 100%;
+                height: 300px;
+            }
+            form {
+                height: auto;
+            }
+
+            .contact-hero { /* Sesuaikan padding di mobile */
+                padding: 0 20px;
+            }
+            .contact-hero .hero-content h1 {
+                font-size: 2.5rem; /* Kecilkan ukuran font untuk mobile */
+            }
+        }
+
+        @media (max-width: 480px) { /* New: More granular mobile adjustments */
+            .main-header .company-name {
+                font-size: 1.2rem;
+            }
+            .main-header .tagline {
+                font-size: 0.8rem;
+            }
+            .main-header .main-nav a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            p, .contact-info p {
+                font-size: 14px;
+            }
+            input, textarea, button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .contact-hero .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Menu -->
-  <nav>
-    <a href="/home">Home</a>
-    <a href="/layanan">Layanan</a>
-    <a href="/property">Property</a>
-    <a href="/homestay">Homestay</a>
-    <a href="/contact" class="active">Contact</a>
-  </nav>
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <div class="company-info">
+                <div class="company-name">RND Properti</div>
+                <div class="tagline">Contractor & Consultant</div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <a href="/home">Home</a>
+            <a href="/about">About</a>
+            <a href="/layanan">Layanan</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/property">Property</a>
+            <a href="/homestay">Homestay</a>
+            <a href="/contact" class="active">Contact</a>
+        </nav>
+    </header>
 
-  <!-- Header -->
-  <header class="top-header">
-    <div class="logo-group">
-      <img src="{{ asset('assets/images/Logo.png') }}" alt="Logo" />
-      <span>REKA NAWA DWELLING</span>
+    <section class="contact-hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="/home">Home</a> > <span>Contact</span>
+            </div>
+            <h1>Contact</h1>
+        </div>
+    </section>
+    <div class="container">
+        <h2>Ada Pertanyaan Lain?</h2>
+        <p class="intro">Hubungi kami jika anda memiliki pertanyaan lebih lanjut tentang Layanan Jasa kami, Harga dan lainnya. Tim kami siap melayani anda dengan senang hati.</p>
+
+        <h1>Hubungi Kami</h1>
+        <p>Silakan isi form berikut untuk menghubungi kami atau mengirimkan pertanyaan Anda.</p>
+
+        <div class="contact-wrapper">
+            <form action="/contact/send" method="POST">
+                @csrf
+                <input type="text" name="name" placeholder="Nama Lengkap" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <input type="text" name="subject" placeholder="Subjek" required />
+                <textarea name="message" rows="6" placeholder="Pesan Anda" required></textarea>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+
+            <div class="map-container" title="Hover untuk zoom peta">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8350323376567!2d110.3893968!3d-7.8080157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a578dfb0a4d4f%3A0x95c3c6c0fdcd8df9!2sBaciro%2C%20Kec.%20Gondokusuman%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1716890985723!5m2!1sid!2sid"
+                    loading="lazy"
+                    allowfullscreen=""
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Peta Lokasi Baciro, Yogyakarta"
+                ></iframe>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <h4>Informasi Kontak</h4>
+            <p><strong>Alamat:</strong> Jl. Pacar, Baciro Baru, Gondokusuman, Yogyakarta, DIY</p>
+            <p><strong>Email:</strong> info@contoh.com</p>
+            <p><strong>Telepon:</strong> +62 812-3456-7890</p>
+        </div>
     </div>
-    <div class="year">{{ date('Y') }}</div>
-  </header>
 
-  <div class="container">
-    <h2>Ada Pertanyaan Lain?</h2>
-    <p class="intro">Hubungi kami jika anda memiliki pertanyaan lebih lanjut tentang Layanan Jasa kami, Harga dan lainnya. Tim kami siap melayani anda dengan senang hati.</p>
-
-    <h1>Hubungi Kami</h1>
-    <p>Silakan isi form berikut untuk menghubungi kami atau mengirimkan pertanyaan Anda.</p>
-
-    <div class="contact-wrapper">
-      <!-- Form kontak -->
-      <form action="/contact/send" method="POST">
-        @csrf
-        <input type="text" name="name" placeholder="Nama Lengkap" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="text" name="subject" placeholder="Subjek" required />
-        <textarea name="message" rows="6" placeholder="Pesan Anda" required></textarea>
-        <button type="submit">Kirim Pesan</button>
-      </form>
-
-      <!-- Peta Google Maps di samping form -->
-      <div class="map-container" title="Hover untuk zoom peta">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8350323376567!2d110.3893968!3d-7.8080157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a578dfb0a4d4f%3A0x95c3c6c0fdcd8df9!2sBaciro%2C%20Kec.%20Gondokusuman%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1716890985723!5m2!1sid!2sid"
-          loading="lazy"
-          allowfullscreen=""
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Peta Lokasi Baciro, Yogyakarta"
-        ></iframe>
-      </div>
-    </div>
-
-    <div class="contact-info">
-      <h4>Informasi Kontak</h4>
-      <p><strong>Alamat:</strong> Jl. Pacar, Baciro Baru, Gondokusuman, Yogyakarta, DIY</p>
-      <p><strong>Email:</strong> info@contoh.com</p>
-      <p><strong>Telepon:</strong> +62 812-3456-7890</p>
-    </div>
-  </div>
-
-  <footer>
-    &copy; {{ date('Y') }} RND Properti - All Rights Reserved
-  </footer>
+    <footer>
+        <p>© {{ date('Y') }} RND Properti - All Rights Reserved</p>
+    </footer>
 
 </body>
 </html>

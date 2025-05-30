@@ -14,9 +14,11 @@ Route::get('/', function () {
 
 // HALAMAN HOME (landing page utama)
 Route::get('/home', [PageController::class, 'index'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');
 
 // HALAMAN PUBLIK LAINNYA
 Route::get('/layanan', [PageController::class, 'layanan'])->name('layanan');
+Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
 Route::get('/property', [PageController::class, 'property'])->name('property');
 Route::get('/homestay', [PageController::class, 'homestay'])->name('homestay');
 

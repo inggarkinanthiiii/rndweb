@@ -4,13 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layanan Kami - RND Properti</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* Variabel CSS untuk Warna */
+        :root {
+            --primary-color: #b40000; /* Merah gelap */
+            --secondary-color: gold; /* Kuning aksen */
+            --dark-bg: #111; /* Latar belakang gelap (dari kode Anda) */
+            --light-bg: #fff; /* Latar belakang terang */
+            --text-dark: #111; /* Teks gelap */
+            --text-light: white; /* Teks terang */
+            --border-color: #eee;
+        }
+
         body {
             margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: #f8f8f8; /* Warna latar belakang sedikit lebih terang */
-            color: #111;
+            font-family: 'Inter', sans-serif; /* Menggunakan Inter */
+            background: var(--light-bg); /* Latar belakang putih */
+            color: var(--text-dark);
             overflow-x: hidden; /* Mencegah scrollbar horizontal karena animasi */
+            line-height: 1.6;
         }
 
         /* DEFINISI ANIMASI */
@@ -39,62 +54,113 @@
             to { opacity: 1; }
         }
 
-        /* NAVIGASI */
-        nav {
-            background: #111;
-            padding: 10px 40px;
+        /* --- HEADER & NAVIGASI BARU (Mengikuti Konsep Gambar) --- */
+        .main-header {
+            background-color: var(--light-bg); /* Latar belakang putih */
+            padding: 15px 40px;
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            opacity: 0; /* Mulai tersembunyi */
-            animation: fadeInDown 1s ease-out forwards; /* Animasi untuk nav */
-            animation-delay: 0.1s;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            background: #444;
-        }
-
-        /* HEADER ATAS */
-        .top-header {
-            display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Logo kiri, Navigasi kanan */
             align-items: center;
-            padding: 12px 40px;
-            border-bottom: 2px solid #eee;
-            font-weight: bold;
-            opacity: 0; /* Mulai tersembunyi */
-            animation: fadeInUp 0.8s ease-out forwards; /* Animasi untuk header */
-            animation-delay: 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+            animation: fadeInDown 1s ease-out forwards; /* Animasi untuk header */
         }
 
-        .logo-group {
+        .main-header .logo-area {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .logo-group img {
-            height: 36px;
+        .main-header .logo-area img {
+            height: 40px; /* Ukuran logo */
         }
 
-        .logo-group span {
+        .main-header .company-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-header .company-name {
+            font-family: 'Poppins', sans-serif; /* Menggunakan Poppins untuk nama perusahaan */
+            font-size: 1.5rem; /* Ukuran font lebih besar untuk nama perusahaan */
+            font-weight: 700;
+            color: var(--primary-color); /* Warna merah untuk nama perusahaan */
+            line-height: 1; /* Hapus spasi ekstra */
+        }
+
+        .main-header .tagline {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 2px; /* Sesuaikan posisi vertikal */
+            font-weight: 500;
+        }
+
+        .main-header .main-nav {
+            display: flex;
+            gap: 25px; /* Jarak antara item navigasi */
+        }
+
+        .main-header .main-nav a {
+            color: #555; /* Warna teks link lebih gelap */
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: color 0.3s ease; /* Hanya transisi warna teks */
+        }
+
+        .main-header .main-nav a:hover,
+        .main-header .main-nav a.active {
+            color: var(--primary-color); /* Warna merah saat hover/aktif */
+            /* Tidak ada background color pada hover/active, hanya perubahan warna teks */
+        }
+        /* --- AKHIR HEADER & NAVIGASI BARU --- */
+
+        /* --- LAYANAN HERO SECTION BARU --- */
+        .layanan-hero {
+            background-image: url('/assets/images/salaman.png'); /* Ganti dengan gambar latar belakang untuk halaman layanan */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 80px 40px;
+            color: white;
+            position: relative;
+            text-align: left;
+        }
+
+        .layanan-hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4); /* overlay gelap */
+            z-index: 1;
+        }
+
+        .layanan-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px; /* Sesuaikan dengan lebar konten utama Anda */
+            margin-left: 0; /* Pastikan rata kiri */
+            margin-right: auto;
+            padding-left: 10px; /* Sedikit padding dari tepi kiri */
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar melebihi max-width */
+            text-align: left;
+        }
+
+        .layanan-hero .breadcrumb {
             font-size: 16px;
-            letter-spacing: 1px;
+            color: #ddd;
         }
 
-        .year {
-            font-size: 14px;
+        .layanan-hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-top: 10px;
+            color: white;
         }
+        /* --- AKHIR LAYANAN HERO SECTION BARU --- */
 
         /* Kontainer Utama Halaman Layanan */
         .layanan-main-container {
@@ -156,7 +222,7 @@
         }
 
         .layanan-sidebar a.active {
-            background-color: #B40000; /* Warna aktif seperti merah di desain utama */
+            background-color: var(--primary-color); /* Warna aktif seperti merah di desain utama */
             color: white;
         }
 
@@ -168,11 +234,12 @@
         }
 
         .layanan-content-area h1 {
+            /* display: none; */ /* Komen baris ini jika Anda ingin tetap menampilkan H1 "Our Services" */
             font-size: 32px;
             font-weight: bold;
             color: #111;
             margin-bottom: 30px;
-            text-align: center;
+            text-align: center; /* Komen atau ubah ke left jika tidak ingin di tengah */
             opacity: 0; /* Mulai tersembunyi */
             animation: fadeInUp 1s ease-out forwards;
             animation-delay: 0.9s; /* Muncul setelah sidebar */
@@ -202,7 +269,7 @@
 
         .service-text h2 {
             font-size: 28px;
-            color: #B40000;
+            color: var(--primary-color); /* Menggunakan variabel */
             margin-bottom: 15px;
             opacity: 0; /* Mulai tersembunyi */
             animation: fadeInUp 0.7s ease-out forwards;
@@ -244,7 +311,7 @@
 
         .service-text ul li::before {
             content: '•'; /* Bullet kustom */
-            color: #B40000; /* Warna bullet */
+            color: var(--primary-color); /* Warna bullet */
             font-weight: bold;
             display: inline-block;
             width: 1em;
@@ -302,7 +369,7 @@
 
         /* Footer (dari halaman sebelumnya) */
         footer {
-            background: #111;
+            background: var(--dark-bg); /* Menggunakan variabel */
             color: white;
             text-align: center;
             padding: 20px;
@@ -321,16 +388,62 @@
 
         /* Responsiveness */
         @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px 20px;
+            }
+            .main-header .logo-area {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            .main-header .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            /* Responsiveness untuk Layanan Hero */
+            .layanan-hero {
+                padding: 60px 20px; /* Kurangi padding di mobile */
+            }
+            .layanan-hero .hero-content {
+                padding-left: 0; /* Hapus padding-left tambahan di mobile jika diinginkan */
+                max-width: 100%; /* Pastikan responsif */
+                margin: auto; /* Pusatkan konten di mobile */
+                text-align: center; /* Pusatkan teks di mobile */
+            }
+            .layanan-hero .breadcrumb,
+            .layanan-hero h1 {
+                text-align: center; /* Pastikan teks di tengah di mobile */
+            }
+            .layanan-hero h1 {
+                font-size: 36px; /* Sesuaikan ukuran font H1 */
+            }
+
+            .layanan-main-container {
+                flex-direction: column; /* Tumpuk sidebar dan konten */
+                margin: 20px auto;
+                padding: 15px;
+            }
+
             .layanan-sidebar {
                 flex: 0 0 100%; /* Sidebar ambil lebar penuh */
                 border-right: none;
                 border-bottom: 1px solid #eee;
                 border-radius: 8px 8px 0 0;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                order: -1; /* Pindahkan sidebar ke atas di mobile */
             }
 
             .layanan-content-area {
-                padding: 20px;
+                padding: 20px 15px;
+                min-width: unset; /* Reset min-width */
+                width: 100%; /* Ambil lebar penuh */
+            }
+
+            .layanan-content-area h1 {
+                font-size: 28px;
             }
 
             .service-header {
@@ -346,30 +459,70 @@
             .architectural-design-visual,
             .service-image { /* Terapkan juga untuk service-image */
                 width: 100%;
-                height: 150px; /* Sesuaikan tinggi untuk mobile */
+                height: 200px; /* Sesuaikan tinggi untuk mobile */
+                object-fit: cover; /* Pastikan gambar tetap proporsional */
                 margin-left: 0; /* Hapus margin auto di mobile */
                 margin-top: 20px; /* Tambahkan ruang saat ditumpuk */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header .company-name {
+                font-size: 1.2rem;
+            }
+            .main-header .tagline {
+                font-size: 0.8rem;
+            }
+            .main-header .main-nav a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+            .layanan-hero h1 {
+                font-size: 32px; /* Sesuaikan ukuran font H1 untuk mobile yang lebih kecil */
+            }
+            .layanan-content-area h1 {
+                font-size: 24px;
+            }
+            .service-text h2 {
+                font-size: 24px;
+            }
+            .service-text p, .service-text ul li {
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="/home">Home</a>
-        <a href="/layanan">Layanan</a>
-        <a href="/property">Property</a>
-        <a href="/homestay">Homestay</a>
-        <a href="/contact">Contact</a>
-    </nav>
-
-     <header class="top-header">
-        <div class="logo-group">
-            <img src="{{ asset('assets/images/Logo.png') }}" alt="Logo">
-            <span>REKA NAWA DWELLING</span>
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <div class="company-info">
+                <div class="company-name">RND Properti</div>
+                <div class="tagline">Contractor & Consultant</div>
+            </div>
         </div>
-        <div class="year">2025</div>
+        <nav class="main-nav">
+            <a href="/home">Home</a>
+            <a href="/about">About</a>
+            <a href="/layanan" class="active">Layanan</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/property">Property</a>
+            <a href="/homestay">Homestay</a>
+            <a href="/contact">Contact</a>
+        </nav>
     </header>
+
+    {{-- Hero Section Layanan --}}
+    <div class="layanan-hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="/home">Home</a> &gt; <span>Layanan</span>
+            </div>
+            <h1>Layanan Kami</h1>
+        </div>
+    </div>
+    {{-- Akhir Hero Section Layanan --}}
 
     <div class="layanan-main-container">
         <aside class="layanan-sidebar">
@@ -381,7 +534,9 @@
         </aside>
 
         <main class="layanan-content-area">
-            <h1>Our Services</h1>
+            {{-- H1 "Our Services" di bawah ini dikomentari karena sudah ada di Hero Section --}}
+            {{-- <h1 style="display: none;">Our Services</h1> --}}
+            {{-- Anda bisa menghapus style="display: none;" jika ingin tetap menampilkannya --}}
 
             <section id="architectural-design" class="service-section active">
                 <div class="service-header">
@@ -399,7 +554,7 @@
                         </ul>
                     </div>
                     <div class="service-image">
-                        <img src="{{ asset('assets/images/arsitek.jpg') }}">
+                        <img src="{{ asset('assets/images/arsitek.jpg') }}" alt="Architectural Design">
                     </div>
                 </div>
             </section>
@@ -421,7 +576,7 @@
                         </ul>
                     </div>
                     <div class="service-image">
-                        <img src="{{ asset('assets/images/General Contractor.jpg') }}">
+                        <img src="{{ asset('assets/images/General Contractor.jpg') }}" alt="General Contractor">
                     </div>
                 </div>
             </section>
@@ -445,7 +600,7 @@
                         </ul>
                     </div>
                     <div class="service-image">
-                        <img src="{{ asset('assets/images/Properti.jpg') }}">
+                        <img src="{{ asset('assets/images/Properti.jpg') }}" alt="Property Development">
                     </div>
                 </div>
             </section>
@@ -455,7 +610,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Reka Nawa Dwelling</p>
+        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
     </footer>
 
     <script>

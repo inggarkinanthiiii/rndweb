@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - RND Properti</title>
+    <title>About - RND Properti</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
@@ -97,127 +96,56 @@
             color: var(--primary-color);
         }
 
-        /* --- Carousel Styles --- */
-        .carousel-container {
+        .hero-banner {
             width: 100%;
-            height: 500px; /* Tinggi carousel */
-            position: relative;
-            overflow: hidden;
-            background-color: #333; /* Fallback color */
-        }
-
-        .carousel-slide {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
+            height: 300px; /* Adjust height as needed */
+            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Using the provided image */
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            padding-left: 10%;
+            box-sizing: border-box;
+            position: relative;
             z-index: 1;
-
-            /* Start of new styles for zoom effect */
-            transform: scale(1.1); /* Zoomed in by default */
-            transition: opacity 1s ease-in-out, transform 5s ease-out; /* Smooth transition for both opacity and zoom */
-            /* End of new styles */
         }
 
-        .carousel-slide::before {
+        .hero-banner::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
-            z-index: -1; /* Behind content */
+            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: -1;
         }
 
-        .carousel-slide.active {
-            opacity: 1;
-            z-index: 2;
-            transform: scale(1); /* Zoom out to normal size when active */
+        .hero-banner .breadcrumbs {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        .carousel-content {
-            max-width: 800px;
-            margin: auto;
+        .hero-banner .breadcrumbs a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .hero-banner .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-banner .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3em;
+            font-weight: 700;
+            margin: 0;
             animation: fadeInUp 1s ease-out forwards;
         }
-
-        .carousel-content h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-
-        .carousel-content p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 3;
-        }
-
-        .carousel-nav button {
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 1.5em;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        .carousel-nav button:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        .carousel-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 3;
-        }
-
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .carousel-dot.active {
-            background: var(--primary-color);
-        }
-        /* --- End Carousel Styles --- */
 
 
         .container {
@@ -425,13 +353,13 @@
             position: relative;
             background: #c5cfd4;
             max-height: 350px;
-            overflow: hidden;
+            overflow: hidden; /* Ensures image doesn't overflow */
         }
 
         .priority-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 100%; /* Make image fill the container */
+            object-fit: cover; /* Cover the area without distortion */
         }
 
         .yellow-strip {
@@ -471,16 +399,13 @@
                 padding: 5px 10px;
             }
 
-            .carousel-container {
-                height: 400px;
+            .hero-banner {
+                padding-left: 5%;
+                height: 250px;
             }
 
-            .carousel-content h2 {
+            .hero-banner .page-title {
                 font-size: 2.5em;
-            }
-
-            .carousel-content p {
-                font-size: 1em;
             }
 
             .brief {
@@ -539,16 +464,12 @@
                 gap: 10px;
             }
 
-            .carousel-container {
-                height: 300px;
+            .hero-banner {
+                height: 200px;
             }
 
-            .carousel-content h2 {
-                font-size: 1.8em;
-            }
-
-            .carousel-content p {
-                font-size: 0.9em;
+            .hero-banner .page-title {
+                font-size: 2em;
             }
 
             .section-title {
@@ -577,8 +498,8 @@
             </div>
         </div>
         <nav class="main-nav">
-            <a href="/home" class="active">Home</a>
-            <a href="/about">About</a>
+            <a href="/home">Home</a>
+            <a href="/about" class="active">About</a>
             <a href="/layanan">Layanan</a>
             <a href="/portfolio">Portfolio</a>
             <a href="/property">Property</a>
@@ -587,35 +508,11 @@
         </nav>
     </header>
 
-    <div class="carousel-container">
-        <div class="carousel-slide active" style="background-image: url('{{ asset('assets/images/port18.png') }}');">
-            <div class="carousel-content">
-                <h2>VISI KAMI</h2>
-                <p>Menjadi perusahaan terdepan dalam menciptakan ruang hidup dan usaha yang inovatif, berkelanjutan, dan berdampak positif bagi masyarakat.</p>
-            </div>
+    <div class="hero-banner">
+        <div class="breadcrumbs">
+            <a href="/home">Home</a> > About
         </div>
-
-        <div class="carousel-slide" style="background-image: url('{{ asset('assets/images/port39.png') }}');">
-            <div class="carousel-content">
-                <h2>MISI KAMI</h2>
-                <p>Menyediakan layanan arsitektur, konstruksi, dan pengembangan properti yang profesional, efisien, dan berorientasi pada kualitas. Menghadirkan solusi desain dan bangunan yang fungsional, estetis, dan ramah lingkungan.</p>
-            </div>
-        </div>
-
-        <div class="carousel-slide" style="background-image: url('{{ asset('assets/images/gedung.jpg') }}');">
-            <div class="carousel-content">
-                <h2>REKA NAWA DWELLING</h2>
-                <p>Kami menghadirkan solusi terpadu dalam perencanaan, pelaksanaan, dan optimalisasi aset properti, dengan fokus pada kualitas, ketepatan waktu, dan nilai berkelanjutan.</p>
-            </div>
-        </div>
-
-        <div class="carousel-nav">
-            <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
-            <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
-        </div>
-
-        <div class="carousel-dots">
-            </div>
+        <div class="page-title">About</div>
     </div>
 
     <div class="container">
@@ -686,89 +583,6 @@
     <footer>
         <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
     </footer>
-
-    <script>
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        const prevButton = document.querySelector('.prev-slide');
-        const nextButton = document.querySelector('.next-slide');
-        let currentSlide = 0;
-        let slideInterval;
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-            });
-            // Delay adding 'active' class slightly for a better zoom effect with the fade
-            setTimeout(() => {
-                slides[index].classList.add('active');
-            }, 50); // Small delay
-            updateDots(index);
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function startSlideShow() {
-            slideInterval = setInterval(nextSlide, 5000); // Ganti slide setiap 5 detik
-        }
-
-        function pauseSlideShow() {
-            clearInterval(slideInterval);
-        }
-
-        function createDots() {
-            slides.forEach((_, i) => {
-                const dot = document.createElement('span');
-                dot.classList.add('carousel-dot');
-                dot.setAttribute('data-index', i);
-                dot.addEventListener('click', () => {
-                    showSlide(i);
-                    pauseSlideShow();
-                    startSlideShow(); // Restart timer after manual click
-                });
-                dotsContainer.appendChild(dot);
-            });
-            updateDots(0);
-        }
-
-        function updateDots(activeIndex) {
-            const dots = document.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, i) => {
-                dot.classList.remove('active');
-                if (i === activeIndex) {
-                    dot.classList.add('active');
-                }
-            });
-        }
-
-        // Event Listeners for navigation buttons
-        prevButton.addEventListener('click', () => {
-            prevSlide();
-            pauseSlideShow();
-            startSlideShow(); // Restart timer after manual click
-        });
-
-        nextButton.addEventListener('click', () => {
-            nextSlide();
-            pauseSlideShow();
-            startSlideShow(); // Restart timer after manual click
-        });
-
-        // Initialize carousel
-        document.addEventListener('DOMContentLoaded', () => {
-            createDots();
-            showSlide(currentSlide);
-            startSlideShow();
-        });
-    </script>
 
 </body>
 </html>
