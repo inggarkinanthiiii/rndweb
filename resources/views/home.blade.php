@@ -63,7 +63,7 @@
         }
 
         .main-header .logo-area img {
-            height: 45px; /* Sedikit lebih besar */
+            height: 50px; /* Sedikit lebih besar */
         }
 
         .main-header .company-info {
@@ -73,7 +73,7 @@
 
         .main-header .company-name {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.6rem; /* Sedikit lebih besar */
+            font-size: 1.5rem; /* Sedikit lebih besar */
             font-weight: 700;
             color: var(--primary-color);
             line-height: 1;
@@ -258,7 +258,7 @@
             padding: 60px 20px; /* Padding section lebih besar */
         }
 
-        .section-title {
+        .section-title {.
             font-size: 38px; /* Lebih besar */
             font-weight: 700;
             text-transform: uppercase;
@@ -532,12 +532,94 @@
             margin-right: 8px;
         }
 
+        /* New section for contact and R&D */
+        .contact-rnd-section {
+            background-color: var(--primary-color); /* Red background */
+            color: var(--text-light);
+            padding: 60px 40px;
+            margin-top: 60px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-rnd-section .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            padding: 0; /* Remove container padding as section already has it */
+        }
+
+        .contact-rnd-column {
+            flex: 1;
+            min-width: 300px; /* Minimum width for columns */
+        }
+
+        .contact-rnd-column h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .contact-rnd-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 80px; /* Length of the line */
+            height: 2px;
+            background-color: var(--secondary-color); /* Gold line */
+        }
+
+        .contact-rnd-column .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .contact-rnd-column .contact-item i {
+            color: var(--secondary-color);
+            margin-right: 15px;
+            font-size: 1.4em;
+        }
+
+        .contact-rnd-column .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-rnd-column .contact-item a:hover {
+            color: var(--secondary-color);
+        }
+
+        .contact-rnd-column .rnd-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .confidential-footer {
+            background-color: var(--primary-color); /* Same as section background */
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 255, 255, 0.2); /* Subtle line above */
+            margin-top: 20px; /* Space from the main contact/R&D content */
+        }
+
+
         footer {
             background: var(--dark-bg);
             color: var(--text-light);
             text-align: center;
             padding: 30px; /* Sedikit lebih tinggi */
-            margin-top: 60px;
+            margin-top: 0; /* Adjust margin as new section will be before it */
             animation: fadeInUp 2.1s ease-out forwards;
             font-size: 0.95em;
         }
@@ -552,6 +634,19 @@
         }
         footer .footer-links a:hover {
             color: white;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .whatsapp-float img {
+            width: 50px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
 
@@ -622,6 +717,22 @@
                 margin: 10px 0; /* Jeda vertikal */
                 display: block; /* Tombol jadi block */
             }
+
+            .contact-rnd-section .container {
+                flex-direction: column;
+            }
+            .contact-rnd-column {
+                min-width: unset;
+                width: 100%;
+                text-align: center; /* Center align content for smaller screens */
+            }
+            .contact-rnd-column h3::after {
+                left: 50%; /* Center the underline */
+                transform: translateX(-50%);
+            }
+            .contact-rnd-column .contact-item {
+                justify-content: center; /* Center contact items */
+            }
         }
 
         @media (max-width: 576px) {
@@ -691,6 +802,22 @@
                 padding: 10px 20px;
             }
 
+            .contact-rnd-section {
+                padding: 40px 20px;
+            }
+            .contact-rnd-column h3 {
+                font-size: 22px;
+            }
+            .contact-rnd-column .contact-item {
+                font-size: 1em;
+            }
+            .contact-rnd-column .contact-item i {
+                font-size: 1.2em;
+            }
+            .contact-rnd-column .rnd-description {
+                font-size: 1em;
+            }
+
             footer {
                 padding: 20px 15px;
             }
@@ -719,7 +846,7 @@
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
         </nav>
-    </header>   
+    </header>   
 
     <div class="carousel-container">
         <div class="carousel-slide active" style="background-image: url('{{ asset('assets/images/gedung.jpg') }}');">
@@ -837,6 +964,49 @@
             <a href="/portfolio" class="btn-primary">Lihat Semua Proyek</a>
         </div>
     </section>
+
+    {{-- Call to Action Section (Existing) --}}
+    <section class="cta-section">
+        <h2>Siap Memulai Proyek Anda?</h2>
+        <p>Hubungi kami hari ini untuk konsultasi gratis dan wujudkan visi properti impian Anda bersama Reka Nawa Dwelling.</p>
+        <div class="cta-buttons">
+            <a href="/contact">Hubungi Kami</a>
+            <a href="https://wa.me/6281234567890" target="_blank">Chat via WhatsApp</a>
+        </div>
+    </section>
+
+    {{-- NEW: Contact & Research and Development Section (based on your image) --}}
+    <section class="contact-rnd-section">
+        <div class="container">
+            <div class="contact-rnd-column">
+                <h3>OUR CONTACT</h3>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>+62 851-4765-2009 / +62 822-2324-0324</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><a href="mailto:officialrnd.09@gmail.com">officialrnd.09@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <p><a href="https://www.instagram.com/officialrnd09" target="_blank">officialrnd09</a></p>
+                </div>
+            </div>
+
+            <div class="contact-rnd-column">
+                <h3>RESEARCH AND DEVELOPMENT</h3>
+                <p class="rnd-description">
+                    Menciptakan solusi inovatif, berkelanjutan, dan berdampak positif melalui layanan arsitektur, kontraktor dan pengembangan properti.
+                </p>
+            </div>
+        </div>
+        <div class="confidential-footer">
+            Strictly Confidential, For Recipient Only
+        </div>
+    </section>
+    {{-- END NEW SECTION --}}
+
     <footer>
         <p>&copy; {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
         <div class="footer-links">
@@ -844,6 +1014,9 @@
             <a href="/terms-of-service">Syarat & Ketentuan</a>
         </div>
     </footer>
+    <a href="https://wa.me/6281234567890" class="whatsapp-float" target="_blank">
+        <img src="{{ asset('assets/images/wwa.png') }}" alt="WhatsApp">
+    </a>
 
     <script>
         const slides = document.querySelectorAll('.carousel-slide');
