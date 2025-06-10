@@ -536,8 +536,11 @@
         .contact-rnd-section {
             background-color: var(--primary-color); /* Red background */
             color: var(--text-light);
-            padding: 60px 40px;
-            margin-top: 60px;
+            padding: 5px 0; 
+            justify-content: center;
+            align-items: flex-start;
+            gap: 10px;
+            flex-wrap: wrap;
             font-family: 'Inter', sans-serif;
         }
 
