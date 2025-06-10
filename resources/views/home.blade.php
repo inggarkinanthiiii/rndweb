@@ -59,11 +59,11 @@
         .main-header .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .main-header .logo-area img {
-            height: 50px; /* Sedikit lebih besar */
+            height: 60px; /* Sedikit lebih besar */
         }
 
         .main-header .company-info {
@@ -71,16 +71,17 @@
             flex-direction: column;
         }
 
-        .main-header .company-name {
+       .main-header .company-name {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem; /* Sedikit lebih besar */
+            font-size: 1.1rem;
             font-weight: 700;
+            margin-top: 5px;
             color: var(--primary-color);
             line-height: 1;
         }
 
         .main-header .tagline {
-            font-size: 0.95rem; /* Sedikit lebih besar */
+            font-size: 0.8rem;
             color: #555;
             margin-top: 2px;
             font-weight: 500;
@@ -536,7 +537,7 @@
         .contact-rnd-section {
             background-color: var(--primary-color); /* Red background */
             color: var(--text-light);
-            padding: 5px 0; 
+            padding: 5px 0;
             justify-content: center;
             align-items: flex-start;
             gap: 10px;
@@ -834,10 +835,10 @@
 
     <header class="main-header">
         <div class="logo-area">
-            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <img src="{{ asset('assets/images/logopt2trg.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">Reka Nawa Dwelling</div>
-                <div class="tagline">Contractor & Consultant</div>
+                <div class="company-name">REKANAWADWELLING</div>
+                <div class="tagline">Arsitek & Kontraktor</div>
             </div>
         </div>
         <nav class="main-nav">
@@ -849,7 +850,7 @@
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
         </nav>
-    </header>   
+    </header>  
 
     <div class="carousel-container">
         <div class="carousel-slide active" style="background-image: url('{{ asset('assets/images/gedung.jpg') }}');">
@@ -1011,12 +1012,9 @@
     {{-- END NEW SECTION --}}
 
     <footer>
-        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="/privacy-policy">Kebijakan Privasi</a>
-            <a href="/terms-of-service">Syarat & Ketentuan</a>
-        </div>
+        <p>&copy; {{ date('Y') }} REKANAWADWELLING. All rights reserved.</p>
     </footer>
+
     <a href="https://wa.me/6281234567890" class="whatsapp-float" target="_blank">
         <img src="{{ asset('assets/images/wwa.png') }}" alt="WhatsApp">
     </a>

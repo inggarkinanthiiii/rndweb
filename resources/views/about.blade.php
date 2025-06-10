@@ -50,11 +50,11 @@
         .main-header .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .main-header .logo-area img {
-            height: 40px;
+            height: 60px;
         }
 
         .main-header .company-info {
@@ -64,14 +64,15 @@
 
         .main-header .company-name {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
+            margin-top: 5px;
             color: var(--primary-color);
             line-height: 1;
         }
 
         .main-header .tagline {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #555;
             margin-top: 2px;
             font-weight: 500;
@@ -121,22 +122,6 @@
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
             z-index: -1;
-        }
-
-        .hero-banner .breadcrumbs {
-            font-size: 0.9em;
-            margin-bottom: 10px;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .hero-banner .breadcrumbs a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .hero-banner .breadcrumbs a:hover {
-            text-decoration: underline;
         }
 
         .hero-banner .page-title {
@@ -491,10 +476,10 @@
 
     <header class="main-header">
         <div class="logo-area">
-            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <img src="{{ asset('assets/images/logopt2trg.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">RND Properti</div>
-                <div class="tagline">Contractor & Consultant</div>
+                <div class="company-name">REKANAWADWELLING</div>
+                <div class="tagline">Arsitek & Kontraktor</div>
             </div>
         </div>
         <nav class="main-nav">
@@ -509,9 +494,6 @@
     </header>
 
     <div class="hero-banner">
-        <div class="breadcrumbs">
-            <a href="/home">Home</a> > About
-        </div>
         <div class="page-title">About</div>
     </div>
 
@@ -581,7 +563,7 @@
     </div>
 
     <footer>
-        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
+        <p>&copy; {{ date('Y') }} REKANAWADWELLING. All rights reserved.</p>
     </footer>
 
 </body>

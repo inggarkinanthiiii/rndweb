@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - RND Properti</title>
+    <title>Welcome to REKANAWADWELLING</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -65,11 +65,11 @@
         .main-header .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .main-header .logo-area img {
-            height: 40px; /* Ukuran logo */
+            height: 60px; /* Ukuran logo */
         }
 
         .main-header .company-info {
@@ -78,17 +78,18 @@
         }
 
         .main-header .company-name {
-            font-family: 'Poppins', sans-serif; /* Menggunakan Poppins untuk nama perusahaan */
-            font-size: 1.5rem; /* Ukuran font lebih besar untuk nama perusahaan */
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary-color); /* Warna merah untuk nama perusahaan */
-            line-height: 1; /* Hapus spasi ekstra */
+            margin-top: 5px;
+            color: var(--primary-color);
+            line-height: 1;
         }
 
         .main-header .tagline {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #555;
-            margin-top: 2px; /* Sesuaikan posisi vertikal */
+            margin-top: 2px;
             font-weight: 500;
         }
 
@@ -136,7 +137,7 @@
             position: relative;
             z-index: 1;
         }
-
+        .hero p1,
         .hero h1,
         .hero p,
         .hero .btn {
@@ -149,6 +150,11 @@
             margin: 0;
             font-weight: bold;
             animation-delay: 0.6s;
+        }
+        .hero p1 {
+            font-size: 20px;
+            margin-top: 10px;
+            animation-delay: 0.8s;
         }
 
         .hero p:nth-of-type(1) {
@@ -184,7 +190,7 @@
         .contact {
             background: var(--primary-color); /* Menggunakan variabel */
             color: white;
-            padding: 40px 20px;
+            padding: 50px 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
@@ -233,6 +239,9 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
+            }
+            .hero p1 {
+                font-size: 24px;
             }
             .hero h1 {
                 font-size: 36px;
@@ -285,25 +294,17 @@
 
     <header class="main-header">
         <div class="logo-area">
-            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <img src="{{ asset('assets/images/logopt2trg.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">RND Properti</div>
-                <div class="tagline">Contractor & Consultant</div>
+                <div class="company-name">REKANAWADWELLING</div>
+                <div class="tagline">Arsitek & Kontraktor</div>
             </div>
         </div>
-        <nav class="main-nav">
-            <a href="/home" class="active">Home</a> <a href="/layanan">Layanan</a>
-            <a href="/layanan">Layanan</a>
-            <a href="/portfolio">Portfolio</a>
-            <a href="/property">Property</a>
-            <a href="/homestay">Homestay</a>
-            <a href="/contact">Contact</a>
-        </nav>
     </header>
     <section class="hero">
         <div class="hero-content">
-            <h1>COMPANY PROFILE</h1>
-            <p>Selamat Datang di RND Properti</p>
+            <p1>WELCOME TO</p1>
+            <h1>REKANAWADWELLING</h1>
             <p>Kami hadir dengan solusi arsitektur, kontraktor, dan properti yang inovatif dan berkelanjutan.</p>
             <a href="/home" class="btn">Masuk ke Halaman Utama</a>
         </div>

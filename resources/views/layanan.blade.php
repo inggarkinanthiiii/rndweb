@@ -68,11 +68,11 @@
         .main-header .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .main-header .logo-area img {
-            height: 40px; /* Ukuran logo */
+            height: 60px; /* Ukuran logo */
         }
 
         .main-header .company-info {
@@ -80,18 +80,19 @@
             flex-direction: column;
         }
 
-        .main-header .company-name {
-            font-family: 'Poppins', sans-serif; /* Menggunakan Poppins untuk nama perusahaan */
-            font-size: 1.5rem; /* Ukuran font lebih besar untuk nama perusahaan */
+       .main-header .company-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary-color); /* Warna merah untuk nama perusahaan */
-            line-height: 1; /* Hapus spasi ekstra */
+            margin-top: 5px;
+            color: var(--primary-color);
+            line-height: 1;
         }
 
         .main-header .tagline {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #555;
-            margin-top: 2px; /* Sesuaikan posisi vertikal */
+            margin-top: 2px;
             font-weight: 500;
         }
 
@@ -117,48 +118,39 @@
         /* --- AKHIR HEADER & NAVIGASI BARU --- */
 
         /* --- LAYANAN HERO SECTION BARU --- */
-        .layanan-hero {
-            background-image: url('/assets/images/salaman.png'); /* Ganti dengan gambar latar belakang untuk halaman layanan */
+         .hero-banner {
+            width: 100%;
+            height: 300px; /* Adjust height as needed */
+            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Using the provided image */
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             color: white;
+            padding-left: 10%;
+            box-sizing: border-box;
             position: relative;
-            text-align: left;
-        }
-
-        .layanan-hero::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.4); /* overlay gelap */
             z-index: 1;
         }
 
-        .layanan-hero .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px; /* Sesuaikan dengan lebar konten utama Anda */
-            margin-left: 0; /* Pastikan rata kiri */
-            margin-right: auto;
-            padding-left: 10px; /* Sedikit padding dari tepi kiri */
-            box-sizing: border-box; /* Pastikan padding tidak menambah lebar melebihi max-width */
-            text-align: left;
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: -1;
         }
 
-        .layanan-hero .breadcrumb {
-            font-size: 16px;
-            color: #ddd;
-        }
-
-        .layanan-hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-top: 10px;
-            color: white;
+        .hero-banner .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3em;
+            font-weight: 700;
+            margin: 0;
+            animation: fadeInUp 1s ease-out forwards;
         }
         /* --- AKHIR LAYANAN HERO SECTION BARU --- */
 
@@ -404,21 +396,14 @@
             }
 
             /* Responsiveness untuk Layanan Hero */
-            .layanan-hero {
-                padding: 60px 20px; /* Kurangi padding di mobile */
+
+            .hero-banner {
+                padding-left: 5%;
+                height: 250px;
             }
-            .layanan-hero .hero-content {
-                padding-left: 0; /* Hapus padding-left tambahan di mobile jika diinginkan */
-                max-width: 100%; /* Pastikan responsif */
-                margin: auto; /* Pusatkan konten di mobile */
-                text-align: center; /* Pusatkan teks di mobile */
-            }
-            .layanan-hero .breadcrumb,
-            .layanan-hero h1 {
-                text-align: center; /* Pastikan teks di tengah di mobile */
-            }
-            .layanan-hero h1 {
-                font-size: 36px; /* Sesuaikan ukuran font H1 */
+
+            .hero-banner .page-title {
+                font-size: 2.5em;
             }
 
             .layanan-main-container {
@@ -477,9 +462,14 @@
                 padding: 6px 10px;
                 font-size: 0.9rem;
             }
-            .layanan-hero h1 {
-                font-size: 32px; /* Sesuaikan ukuran font H1 untuk mobile yang lebih kecil */
+            .hero-banner {
+                height: 200px;
             }
+
+            .hero-banner .page-title {
+                font-size: 2em;
+            }
+
             .layanan-content-area h1 {
                 font-size: 24px;
             }
@@ -496,10 +486,10 @@
 
     <header class="main-header">
         <div class="logo-area">
-            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <img src="{{ asset('assets/images/logopt2trg.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">RND Properti</div>
-                <div class="tagline">Contractor & Consultant</div>
+                <div class="company-name">REKANAWADWELLING</div>
+                <div class="tagline">Arsitek & Kontraktor</div>
             </div>
         </div>
         <nav class="main-nav">
@@ -514,13 +504,8 @@
     </header>
 
     {{-- Hero Section Layanan --}}
-    <div class="layanan-hero">
-        <div class="hero-content">
-            <div class="breadcrumb">
-                <a href="/home">Home</a> &gt; <span>Layanan</span>
-            </div>
-            <h1>Layanan Kami</h1>
-        </div>
+    <div class="hero-banner">
+        <div class="page-title">Layanan Kami</div>
     </div>
     {{-- Akhir Hero Section Layanan --}}
 
@@ -610,7 +595,7 @@
     </div>
 
     <footer>
-        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
+        <p>&copy; {{ date('Y') }} REKANAWADWELLING. All rights reserved.</p>
     </footer>
 
     <script>
