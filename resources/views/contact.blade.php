@@ -6,6 +6,7 @@
     <title>Contact - RND Properti</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         /* ... (CSS Anda sebelumnya) ... */
@@ -201,10 +202,20 @@
         }
 
         h1, h2, p {
+            /* opacity: 0; */ /* Hapus ini agar animasi tidak berulang */
+            /* animation: fadeInUp 1.5s ease forwards; */ /* Hapus ini */
+            /* animation-delay: 0.4s; */ /* Hapus ini */
+        }
+        /* Tambahkan aturan terpisah untuk animasi pada elemen yang diperlukan */
+        .container h2,
+        .container p.intro,
+        .container h1:nth-of-type(2), /* H1 kedua */
+        .container p:nth-of-type(2) { /* Paragraf kedua */
             opacity: 0;
             animation: fadeInUp 1.5s ease forwards;
             animation-delay: 0.4s;
         }
+
 
         h1 {
             color: var(--primary-color); /* Menggunakan variabel */
@@ -228,6 +239,7 @@
             flex-wrap: wrap;
             animation: fadeInUp 1.8s ease forwards;
             opacity: 0;
+            animation-delay: 0.8s; /* Tambah delay agar muncul setelah h1, p */
         }
 
         /* FORM */
@@ -292,7 +304,7 @@
             border: none;
         }
 
-        /* CONTACT INFO */
+        /* CONTACT INFO (Existing block) */
         .contact-info {
             margin-top: 40px;
             background-color: #f9f9f9;
@@ -304,6 +316,7 @@
             margin-right: auto;
             animation: fadeInUp 2s ease forwards;
             opacity: 0;
+            animation-delay: 1.2s; /* Tambah delay */
         }
 
         .contact-info h4 {
@@ -314,21 +327,180 @@
         .contact-info p {
             font-size: 16px;
             line-height: 1.5;
+            /* opacity: 0; */ /* Hapus agar tidak double animasi */
+            /* animation: fadeInUp 1.5s ease forwards; */ /* Hapus agar tidak double animasi */
+            /* animation-delay: 0.4s; */ /* Hapus agar tidak double animasi */
         }
 
-        /* FOOTER */
-        footer {
-            background: var(--dark-bg); /* Menggunakan variabel */
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-            animation: fadeInUp 2.2s ease forwards;
+        /* --- New section for contact and R&D (FROM IMAGE) --- */
+        .contact-rnd-section {
+            background-color: var(--primary-color); /* Red background */
+            color: var(--text-light); /* White text */
+            padding: 10px 0 0; /* Padding atas section */
+            margin-top: 60px; /* Jarak dari konten di atasnya */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Untuk menengahkan konten jika ada teks di luar .container */
+            gap: 0px;
+            flex-wrap: wrap;
+            font-family: 'Inter', sans-serif;
+            animation: fadeInUp 1.2s ease-out forwards; /* Animasi fade-in */
             opacity: 0;
+            animation-delay: 1.5s; /* Sesuaikan delay agar muncul setelah elemen lain */
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
+        .contact-rnd-section .container {
+            display: flex; /* Mengatur layout kolom */
+            justify-content: space-between; /* Menjaga jarak antar kolom */
+            gap: 40px; /* Jarak antar kolom */
+            flex-wrap: wrap; /* Memungkinkan kolom untuk wrap (pindah baris) pada layar kecil */
+            padding: 0 20px; /* Tambahkan padding horizontal agar konten tidak menempel tepi */
+            max-width: 1200px; /* Sesuaikan dengan max-width container lainnya */
+            margin: auto; /* Untuk menengahkan container */
+            align-items: flex-start; /* Memastikan kolom sejajar di bagian atas */
+        }
+
+        .contact-rnd-column {
+            flex: 1; /* Agar kolom mengambil ruang yang tersedia */
+            min-width: 300px; /* Lebar minimum untuk kolom sebelum wrap */
+            /* Untuk mode mobile, ini akan diubah agar teks di tengah */
+        }
+
+        .contact-rnd-column h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-light); /* Judul berwarna putih */
+            margin-bottom: 20px;
+            position: relative;
+            /* Untuk mobile, ini akan diubah menjadi text-align: center; */
+        }
+
+        .contact-rnd-column h3::after { /* Garis emas di bawah judul */
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 80px; /* Panjang garis */
+            height: 2px;
+            background-color: var(--secondary-color); /* Warna emas */
+            /* Untuk mobile, ini akan diubah menjadi left: 50%; transform: translateX(-50%); */
+        }
+
+        .contact-rnd-column .contact-item {
+            display: flex; /* Untuk ikon dan teks sejajar */
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            /* Untuk mobile, ini akan diubah menjadi justify-content: center; */
+        }
+
+        .contact-rnd-column .contact-item i {
+            color: var(--secondary-color); /* Warna ikon emas */
+            margin-right: 15px;
+            font-size: 1.4em;
+        }
+
+        .contact-rnd-column .contact-item a {
+            color: var(--text-light); /* Warna teks link putih */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-rnd-column .contact-item a:hover {
+            color: var(--secondary-color); /* Warna hover emas */
+        }
+
+        .contact-rnd-column .rnd-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9); /* Sedikit transparan untuk teks deskripsi */
+        }
+
+        /* Footer Confidential (text "Strictly Confidential...") */
+        .confidential-text { /* Kelas baru untuk teks rahasia */
+            font-size: 0.85em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Main Footer */
+        footer {
+            background: var(--dark-bg); /* Warna latar belakang hitam keabu-abuan */
+            color: white; /* Warna teks putih */
+            text-align: center;
+            padding: 30px;
+            margin-top: 0; /* Agar menempel sempurna dengan section di atasnya */
+            animation: fadeInUp 2.1s ease-out forwards;
+            font-size: 0.95em;
+            opacity: 0; /* Awalnya tersembunyi untuk animasi */
+            animation-delay: 1.8s; /* Sesuaikan delay */
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+        footer .footer-links {
+            margin-top: 10px;
+        }
+        footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: white;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed; /* Membuat tombol tetap di posisi saat scroll */
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000; /* Memastikan tombol di atas elemen lain */
+            animation: fadeInRight 1s ease-out forwards;
+            opacity: 0;
+            animation-delay: 2s; /* Sesuaikan delay agar muncul terakhir */
+        }
+        .whatsapp-float img {
+            width: 50px;
+            height: auto;
+            border-radius: 50%; /* Membuat gambar bulat */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3); /* Bayangan untuk efek 3D */
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float img:hover {
+            transform: scale(1.1); /* Efek zoom saat hover */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 992px) {
+            .contact-rnd-section .container {
+                flex-direction: column; /* Mengubah layout kolom menjadi satu kolom */
+                padding: 0 40px; /* Menambah padding untuk mobile */
+            }
+            .contact-rnd-column {
+                min-width: unset; /* Menghapus min-width */
+                width: 100%; /* Mengambil lebar penuh */
+                text-align: center; /* Menengahkan konten untuk layar kecil */
+                margin-bottom: 30px; /* Jarak antar kolom */
+            }
+            .contact-rnd-column:last-child {
+                margin-bottom: 0; /* Hapus margin bawah kolom terakhir */
+            }
+            .contact-rnd-column h3::after {
+                left: 50%; /* Menengahkan garis bawah judul */
+                transform: translateX(-50%);
+            }
+            .contact-rnd-column .contact-item {
+                justify-content: center; /* Menengahkan item kontak */
+            }
+
             .main-header { /* New: Responsive for main-header */
                 flex-direction: column;
                 text-align: center;
@@ -363,7 +535,7 @@
             }
         }
 
-        @media (max-width: 480px) { /* New: More granular mobile adjustments */
+        @media (max-width: 576px) { /* Lebih granular mobile adjustments */
             .main-header .company-name {
                 font-size: 1.2rem;
             }
@@ -383,7 +555,7 @@
             h2 {
                 font-size: 22px;
             }
-            p, .contact-info p {
+            p, .contact-info p, .contact-rnd-column .rnd-description {
                 font-size: 14px;
             }
             input, textarea, button {
@@ -392,6 +564,21 @@
             }
             .contact-hero .hero-content h1 {
                 font-size: 2rem;
+            }
+            .contact-rnd-column h3 {
+                font-size: 22px; /* Ukuran judul lebih kecil */
+            }
+            .contact-rnd-column .contact-item {
+                font-size: 1em; /* Ukuran teks kontak lebih kecil */
+            }
+            .contact-rnd-column .contact-item i {
+                font-size: 1.2em; /* Ukuran ikon kontak lebih kecil */
+            }
+            footer {
+                padding: 20px 15px; /* Padding footer lebih kecil */
+            }
+            footer .footer-links a {
+                margin: 0 8px; /* Jarak link di footer lebih kecil */
             }
         }
     </style>
@@ -425,6 +612,7 @@
             <h1>Contact</h1>
         </div>
     </section>
+
     <div class="container">
         <h2>Ada Pertanyaan Lain?</h2>
         <p class="intro">Hubungi kami jika anda memiliki pertanyaan lebih lanjut tentang Layanan Jasa kami, Harga dan lainnya. Tim kami siap melayani anda dengan senang hati.</p>
@@ -444,7 +632,7 @@
 
             <div class="map-container" title="Hover untuk zoom peta">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8350323376567!2d110.3893968!3d-7.8080157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a578dfb0a4d4f%3A0x95c3c6c0fdcd8df9!2sBaciro%2C%20Kec.%20Gondokusuman%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1716890985723!5m2!1sid!2sid"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.076358364139!2d110.38600867448839!3d-7.781878477123999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a577d6118d361%3A0x6b4c9c1b3f9e9e1b!2sBaciro%2C%20Gondokusuman%2C%20Yogyakarta%20City%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1717830600000!5m2!1sen!2sid"
                     loading="lazy"
                     allowfullscreen=""
                     referrerpolicy="no-referrer-when-downgrade"
@@ -461,9 +649,38 @@
         </div>
     </div>
 
+    <section class="contact-rnd-section">
+        <div class="container">
+            <div class="contact-rnd-column">
+                <h3>OUR CONTACT</h3>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+62 851-4765-2009 / +62 822-2324-0324</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><a href="mailto:officialrnd.09@gmail.com">officialrnd.09@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <p><a href="https://www.instagram.com/officialrnd09" target="_blank">officialrnd09</a></p>
+                </div>
+            </div>
+
+            <div class="contact-rnd-column">
+                <h3>RESEARCH AND DEVELOPMENT</h3>
+                <p class="rnd-description">Menciptakan solusi inovatif, berkelanjutan, dan berdampak positif melalui layanan arsitektur, kontraktor dan pengembangan properti.</p>
+            </div>
+        </div>
+        <p class="confidential-text">Strictly Confidential, For Recipient Only</p>
+    </section>
     <footer>
-        <p>© {{ date('Y') }} RND Properti - All Rights Reserved</p>
+        <p>© {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Syarat & Ketentuan</a>
+        </div>
     </footer>
 
-</body>
+    </body>
 </html>

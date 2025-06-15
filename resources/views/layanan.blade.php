@@ -6,6 +6,7 @@
     <title>Layanan Kami - RND Properti</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         /* Variabel CSS untuk Warna */
@@ -26,6 +27,10 @@
             color: var(--text-dark);
             overflow-x: hidden; /* Mencegah scrollbar horizontal karena animasi */
             line-height: 1.6;
+        }
+
+        body.menu-open { /* Tambahkan ini untuk mencegah scrolling saat menu terbuka */
+            overflow: hidden;
         }
 
         /* DEFINISI ANIMASI */
@@ -54,15 +59,15 @@
             to { opacity: 1; }
         }
 
-        /* --- HEADER & NAVIGASI BARU (Mengikuti Konsep Gambar) --- */
+        /* --- HEADER & NAVIGASI BARU --- */
         .main-header {
-            background-color: var(--light-bg); /* Latar belakang putih */
+            background-color: var(--light-bg);
             padding: 15px 40px;
             display: flex;
-            justify-content: space-between; /* Logo kiri, Navigasi kanan */
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
-            animation: fadeInDown 1s ease-out forwards; /* Animasi untuk header */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 1s ease-out forwards;
         }
 
         .main-header .logo-area {
@@ -72,7 +77,7 @@
         }
 
         .main-header .logo-area img {
-            height: 40px; /* Ukuran logo */
+            height: 40px;
         }
 
         .main-header .company-info {
@@ -81,44 +86,155 @@
         }
 
         .main-header .company-name {
-            font-family: 'Poppins', sans-serif; /* Menggunakan Poppins untuk nama perusahaan */
-            font-size: 1.5rem; /* Ukuran font lebih besar untuk nama perusahaan */
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-color); /* Warna merah untuk nama perusahaan */
-            line-height: 1; /* Hapus spasi ekstra */
+            color: var(--primary-color);
+            line-height: 1;
         }
 
         .main-header .tagline {
             font-size: 0.9rem;
             color: #555;
-            margin-top: 2px; /* Sesuaikan posisi vertikal */
+            margin-top: 2px;
             font-weight: 500;
         }
 
         .main-header .main-nav {
             display: flex;
-            gap: 25px; /* Jarak antara item navigasi */
+            gap: 25px;
         }
 
         .main-header .main-nav a {
-            color: #555; /* Warna teks link lebih gelap */
+            color: #555;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 12px;
             border-radius: 5px;
-            transition: color 0.3s ease; /* Hanya transisi warna teks */
+            transition: color 0.3s ease;
         }
 
         .main-header .main-nav a:hover,
         .main-header .main-nav a.active {
-            color: var(--primary-color); /* Warna merah saat hover/aktif */
-            /* Tidak ada background color pada hover/active, hanya perubahan warna teks */
+            color: var(--primary-color);
         }
-        /* --- AKHIR HEADER & NAVIGASI BARU --- */
+
+        /* --- HAMBURGER MENU & MOBILE NAV BARU --- */
+        .hamburger-menu {
+            display: none; /* Sembunyikan secara default */
+            font-size: 28px; /* Ukuran icon hamburger */
+            cursor: pointer;
+            color: var(--text-dark);
+            z-index: 1001;
+        }
+
+        .mobile-menu-overlay {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+            z-index: 998; /* Di bawah mobile-nav */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .mobile-menu-overlay.active {
+            display: block; /* Tampilkan overlay saat aktif */
+            opacity: 1;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -320px; /* Sembunyikan di luar layar */
+            width: 300px; /* Lebar menu slide-in */
+            height: 100%;
+            background-color: #333; /* Warna background menu mobile sesuai gambar */
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 0; /* Hapus padding default */
+        }
+
+        .mobile-nav.active {
+            right: 0; /* Geser ke dalam layar */
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px 20px;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-nav-header .logo-area-mobile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-nav-header .logo-area-mobile img {
+            height: 35px; /* Ukuran logo di menu mobile */
+        }
+
+        .mobile-nav-header .company-name-mobile {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .close-button {
+            font-size: 40px;
+            color: black; /* Warna tombol close */
+            cursor: pointer;
+            margin-left: auto; /* Dorong ke kanan */
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Agar daftar mengisi sisa ruang */
+        }
+
+        .mobile-nav li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a {
+            display: block;
+            color: white; /* Warna teks link di menu mobile */
+            text-decoration: none;
+            font-weight: 500;
+            padding: 15px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            background-color: var(--primary-color); /* Warna latar belakang saat hover/aktif */
+            color: white;
+        }
+        /* --- AKHIR HAMBURGER MENU & MOBILE NAV BARU --- */
+
 
         /* --- LAYANAN HERO SECTION BARU --- */
         .layanan-hero {
-            background-image: url('/assets/images/salaman.png'); /* Ganti dengan gambar latar belakang untuk halaman layanan */
+            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Ganti dengan gambar latar belakang untuk halaman layanan */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -389,57 +505,58 @@
         /* Responsiveness */
         @media (max-width: 768px) {
             .main-header {
-                flex-direction: column;
-                text-align: center;
                 padding: 15px 20px;
-            }
-            .main-header .logo-area {
-                flex-direction: column;
-                margin-bottom: 15px;
+                flex-direction: row;
+                justify-content: space-between;
             }
             .main-header .main-nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                display: none; /* Sembunyikan navigasi desktop di mobile */
+            }
+            .hamburger-menu {
+                display: block; /* Tampilkan ikon hamburger di mobile */
+            }
+            .main-header .logo-area {
+                flex-direction: row;
+                margin-bottom: 0;
             }
 
             /* Responsiveness untuk Layanan Hero */
             .layanan-hero {
-                padding: 60px 20px; /* Kurangi padding di mobile */
+                padding: 60px 20px;
             }
             .layanan-hero .hero-content {
-                padding-left: 0; /* Hapus padding-left tambahan di mobile jika diinginkan */
-                max-width: 100%; /* Pastikan responsif */
-                margin: auto; /* Pusatkan konten di mobile */
-                text-align: center; /* Pusatkan teks di mobile */
+                padding-left: 0;
+                max-width: 100%;
+                margin: auto;
+                text-align: center;
             }
             .layanan-hero .breadcrumb,
             .layanan-hero h1 {
-                text-align: center; /* Pastikan teks di tengah di mobile */
+                text-align: center;
             }
             .layanan-hero h1 {
-                font-size: 36px; /* Sesuaikan ukuran font H1 */
+                font-size: 36px;
             }
 
             .layanan-main-container {
-                flex-direction: column; /* Tumpuk sidebar dan konten */
+                flex-direction: column;
                 margin: 20px auto;
                 padding: 15px;
             }
 
             .layanan-sidebar {
-                flex: 0 0 100%; /* Sidebar ambil lebar penuh */
+                flex: 0 0 100%;
                 border-right: none;
                 border-bottom: 1px solid #eee;
                 border-radius: 8px 8px 0 0;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-                order: -1; /* Pindahkan sidebar ke atas di mobile */
+                order: -1;
             }
 
             .layanan-content-area {
                 padding: 20px 15px;
-                min-width: unset; /* Reset min-width */
-                width: 100%; /* Ambil lebar penuh */
+                min-width: unset;
+                width: 100%;
             }
 
             .layanan-content-area h1 {
@@ -447,22 +564,22 @@
             }
 
             .service-header {
-                flex-direction: column; /* Tumpuk teks dan gambar */
+                flex-direction: column;
                 align-items: center;
             }
 
             .service-text {
-                min-width: unset; /* Reset min-width */
-                width: 100%; /* Ambil lebar penuh */
+                min-width: unset;
+                width: 100%;
             }
 
             .architectural-design-visual,
-            .service-image { /* Terapkan juga untuk service-image */
+            .service-image {
                 width: 100%;
-                height: 200px; /* Sesuaikan tinggi untuk mobile */
-                object-fit: cover; /* Pastikan gambar tetap proporsional */
-                margin-left: 0; /* Hapus margin auto di mobile */
-                margin-top: 20px; /* Tambahkan ruang saat ditumpuk */
+                height: 200px;
+                object-fit: cover;
+                margin-left: 0;
+                margin-top: 20px;
             }
         }
 
@@ -473,12 +590,8 @@
             .main-header .tagline {
                 font-size: 0.8rem;
             }
-            .main-header .main-nav a {
-                padding: 6px 10px;
-                font-size: 0.9rem;
-            }
             .layanan-hero h1 {
-                font-size: 32px; /* Sesuaikan ukuran font H1 untuk mobile yang lebih kecil */
+                font-size: 32px;
             }
             .layanan-content-area h1 {
                 font-size: 24px;
@@ -511,7 +624,29 @@
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
         </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div> <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo-area-mobile">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+                <div class="company-name-mobile">Reka Nawa Dwelling</div>
+            </div>
+            <div class="close-button" id="closeButton">&times;</div>
+        </div>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/layanan" class="active">Layanan</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/property">Property</a></li>
+            <li><a href="/homestay">Homestay</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
 
     {{-- Hero Section Layanan --}}
     <div class="layanan-hero">
@@ -534,10 +669,6 @@
         </aside>
 
         <main class="layanan-content-area">
-            {{-- H1 "Our Services" di bawah ini dikomentari karena sudah ada di Hero Section --}}
-            {{-- <h1 style="display: none;">Our Services</h1> --}}
-            {{-- Anda bisa menghapus style="display: none;" jika ingin tetap menampilkannya --}}
-
             <section id="architectural-design" class="service-section active">
                 <div class="service-header">
                     <div class="service-text">
@@ -614,35 +745,86 @@
     </footer>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileNav = document.getElementById('mobileNav');
+            const closeButton = document.getElementById('closeButton');
+            const mobileNavLinks = mobileNav.querySelectorAll('ul li a');
+            const body = document.body;
+
+            // Function to open the mobile menu
+            function openMobileMenu() {
+                mobileMenuOverlay.classList.add('active');
+                mobileNav.classList.add('active');
+                body.classList.add('menu-open'); // Add class to body to prevent scrolling
+            }
+
+            // Function to close the mobile menu
+            function closeMobileMenu() {
+                mobileMenuOverlay.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.classList.remove('menu-open'); // Remove class from body
+            }
+
+            // Event listener for hamburger icon click
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', openMobileMenu);
+            }
+
+            // Event listener for close button click
+            if (closeButton) {
+                closeButton.addEventListener('click', closeMobileMenu);
+            }
+
+            // Event listener for overlay click to close menu
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', function(event) {
+                    // Close only if clicking directly on the overlay, not on the menu itself
+                    if (event.target === mobileMenuOverlay) {
+                        closeMobileMenu();
+                    }
+                });
+            }
+
+            // Event listener for mobile navigation links click to close menu
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Handle window resize to close mobile menu if resized to desktop
+            window.addEventListener('resize', function() {
+                const desktopNav = document.querySelector('.main-nav');
+                // Check if desktopNav is visible and mobileMenu is active
+                if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Sidebar service content switching logic (existing from your code)
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
             const serviceSections = document.querySelectorAll('.service-section');
 
-            function showService(targetId) {
-                // Remove active class from all links and sections
-                sidebarLinks.forEach(link => link.classList.remove('active'));
-                serviceSections.forEach(section => section.classList.remove('active'));
-
-                // Add active class to the clicked link
-                document.querySelector(`[data-target="${targetId}"]`).classList.add('active');
-
-                // Show the target service section
-                document.getElementById(targetId).classList.add('active');
-            }
-
-            // Add click event listeners to sidebar links
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault(); // Prevent default link behavior
+
+                    // Remove active class from all links and sections
+                    sidebarLinks.forEach(item => item.classList.remove('active'));
+                    serviceSections.forEach(section => section.classList.remove('active'));
+
+                    // Add active class to the clicked link
+                    this.classList.add('active');
+
+                    // Show the corresponding service section
                     const targetId = this.dataset.target;
-                    showService(targetId);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
                 });
             });
-
-            // Optionally, show the first service section on page load
-            if (serviceSections.length > 0) {
-                showService(serviceSections[0].id);
-            }
         });
     </script>
 </body>

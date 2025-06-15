@@ -7,6 +7,8 @@
 
     {{-- Link Google Fonts untuk Inter dan Poppins --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    {{-- Font Awesome untuk ikon hamburger dan panah --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         /* Variabel CSS untuk Warna */
@@ -27,6 +29,10 @@
             color: var(--text-dark);
             overflow-x: hidden; /* Mencegah scrollbar horizontal karena animasi */
             line-height: 1.6;
+        }
+
+        body.menu-open { /* Tambahkan ini untuk mencegah scrolling saat menu hamburger terbuka */
+            overflow: hidden;
         }
 
         /* DEFINISI ANIMASI */
@@ -50,6 +56,11 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         /* --- HEADER & NAVIGASI (Sama seperti halaman lain) --- */
         .main-header {
             background-color: var(--light-bg);
@@ -64,11 +75,11 @@
         .main-header .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .main-header .logo-area img {
-            height: 40px;
+            height: 60px;
         }
 
         .main-header .company-info {
@@ -78,14 +89,15 @@
 
         .main-header .company-name {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
+            margin-top: 5px;
             color: var(--primary-color);
             line-height: 1;
         }
 
         .main-header .tagline {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #555;
             margin-top: 2px;
             font-weight: 500;
@@ -109,98 +121,177 @@
         .main-header .main-nav a.active {
             color: var(--primary-color);
         }
-        /* --- AKHIR HEADER & NAVIGASI --- */
 
-        /* --- HERO SECTION PORTOFOLIO --- */
-        .portfolio-hero {
-            position: relative;
-            width: 100%;
-            min-height: 300px;
-            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Gambar latar belakang baru yang Anda berikan */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex; /* Gunakan flexbox untuk pusatkan konten */
-            align-items: center; /* Pusatkan konten secara vertikal */
-            padding: 0 40px; /* Padding horizontal */
-            box-sizing: border-box;
-            overflow: hidden;
-            text-align: left; /* Pastikan teks di dalam konten tetap rata kiri */
+        /* --- HAMBURGER MENU & MOBILE NAV BARU --- */
+        .hamburger-menu {
+            display: none; /* Sembunyikan secara default */
+            font-size: 28px; /* Ukuran icon hamburger */
+            cursor: pointer;
+            color: var(--text-dark);
+            z-index: 1001;
         }
 
-        .portfolio-hero::after { /* Gunakan ::before untuk overlay */
-            content: '';
-            position: absolute;
+        .mobile-menu-overlay {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* OPASITAS DISAMAKAN DENGAN LAYANAN */
-            z-index: 0; /* Pastikan di bawah konten */
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+            z-index: 998; /* Di bawah mobile-nav */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
 
-        .portfolio-hero .hero-content {
-            position: relative;
-            z-index: 1; /* Pastikan konten di atas overlay ::before */
-            color: white;
-            opacity: 0; /* Untuk animasi */
-            animation: fadeInLeft 1.2s ease-out forwards;
-            max-width: 1200px; /* Atur lebar maksimum konten */
-            margin-left: 0; /* Pastikan rata kiri */
-            margin-right: auto; /* Untuk menjaga rata kiri jika ada max-width */
-            padding-left: 10px; /* Sedikit padding dari tepi kiri */
+        .mobile-menu-overlay.active {
+            display: block; /* Tampilkan overlay saat aktif */
+            opacity: 1;
         }
 
-        .portfolio-hero .hero-content .breadcrumb {
-            font-size: 0.95rem;
-            margin-bottom: 10px;
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -320px; /* Sembunyikan di luar layar */
+            width: 300px; /* Lebar menu slide-in */
+            height: 100%;
+            background-color: #333; /* Warna background menu mobile sesuai gambar */
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 0; /* Hapus padding default */
         }
 
-        .portfolio-hero .hero-content .breadcrumb a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .mobile-nav.active {
+            right: 0; /* Geser ke dalam layar */
         }
 
-        .portfolio-hero .hero-content .breadcrumb a:hover {
-            color: white;
-            text-decoration: underline;
+        .mobile-nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px 20px;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .portfolio-hero .hero-content .breadcrumb span {
-            color: white;
-            font-weight: 600;
+        .mobile-nav-header .logo-area-mobile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .portfolio-hero .hero-content h1 {
+        .mobile-nav-header .logo-area-mobile img {
+            height: 35px; /* Ukuran logo di menu mobile */
+        }
+
+        .mobile-nav-header .company-name-mobile {
             font-family: 'Poppins', sans-serif;
-            font-size: 3.5rem; /* Ukuran font judul utama lebih besar */
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .close-button {
+            font-size: 40px;
+            color: black; /* Warna tombol close */
+            cursor: pointer;
+            margin-left: auto; /* Dorong ke kanan */
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Agar daftar mengisi sisa ruang */
+        }
+
+        .mobile-nav li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a {
+            display: block;
+            color: white; /* Warna teks link di menu mobile */
+            text-decoration: none;
+            font-weight: 500;
+            padding: 15px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            background-color: var(--primary-color); /* Warna latar belakang saat hover/aktif */
+            color: white;
+        }
+        /* --- AKHIR HAMBURGER MENU & MOBILE NAV BARU --- */
+
+        /* --- HERO SECTION PORTOFOLIO --- */
+        .portofolio-hero {
+            width: 100%;
+            height: 300px; /* Adjust height as needed */
+            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Using the provided image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            padding-left: 10%;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portofolio-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: -1;
+        }
+
+        .portofolio-hero .porto-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3em;
             font-weight: 700;
             margin: 0;
-            line-height: 1.1;
+            animation: fadeInUp 1s ease-out forwards;
         }
 
         /* Bagian responsive untuk hero section */
-        @media (max-width: 768px) {
-            .portfolio-hero {
-                min-height: 250px;
-                padding: 0 20px;
+        @media (max-width: 992px) {
+            .portofolio-hero {
+                padding-left: 5%;
+                height: 250px;
             }
-            .portfolio-hero .hero-content h1 {
-                font-size: 2.8rem;
+
+            .portofolio-hero .porto-title {
+                font-size: 2.5em;
             }
         }
 
-        @media (max-width: 480px) {
-            .portfolio-hero {
-                min-height: 200px;
-                padding: 0 15px;
+        @media (max-width: 576px) {
+            .portofolio-hero {
+                height: 200px;
+                padding-left: 5%; /* Atur ulang padding kiri untuk mobile */
+                text-align: center; /* Pusatkan teks di mobile */
+                justify-content: center; /* Pusatkan vertikal di mobile */
             }
-            .portfolio-hero .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            .portfolio-hero .hero-content .breadcrumb {
-                font-size: 0.85rem;
+            .portofolio-hero .porto-title {
+                font-size: 2em;
             }
         }
         /* --- AKHIR HERO SECTION PORTOFOLIO --- */
@@ -463,18 +554,20 @@
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .main-header {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row; /* Kembali ke baris untuk logo dan hamburger */
+                justify-content: space-between; /* Pisahkan logo dan hamburger */
+                align-items: center;
                 padding: 15px 20px;
             }
             .main-header .logo-area {
-                flex-direction: column;
-                margin-bottom: 15px;
+                flex-direction: row;
+                margin-bottom: 0; /* Hapus margin bawah di mobile */
             }
             .main-header .main-nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                display: none; /* Sembunyikan navigasi desktop di mobile */
+            }
+            .hamburger-menu {
+                display: block; /* Tampilkan ikon hamburger di mobile */
             }
             .container {
                 padding: 25px 15px;
@@ -542,10 +635,7 @@
             .main-header .tagline {
                 font-size: 0.8rem;
             }
-            .main-header .main-nav a {
-                padding: 6px 10px;
-                font-size: 0.9rem;
-            }
+            /* main-nav tidak tampil di mobile, jadi tidak perlu diatur */
             .page-title {
                 font-size: 2rem;
             }
@@ -574,8 +664,8 @@
         <div class="logo-area">
             <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">RND Properti</div>
-                <div class="tagline">Contractor & Consultant</div>
+                <div class="company-name">REKANAWADWELLING</div>
+                <div class="tagline">Arsitek & Kontraktor</div>
             </div>
         </div>
         <nav class="main-nav">
@@ -587,16 +677,35 @@
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
         </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
 
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo-area-mobile">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+                <div class="company-name-mobile">Reka Nawa Dwelling</div>
+            </div>
+            <div class="close-button" id="closeButton">&times;</div>
+        </div>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/layanan">Layanan</a></li>
+            <li><a href="/portfolio" class="active">Portfolio</a></li>
+            <li><a href="/property">Property</a></li>
+            <li><a href="/homestay">Homestay</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
 {{-- Hero Section Portofolio --}}
-<div class="portfolio-hero">
-    <div class="hero-content">
-        <div class="breadcrumb">
-            <a href="/home">Home</a> &gt; <span>Portfolio</span> </div>
-        <h1>Portfolio</h1>
+    <div class="portofolio-hero">
+        <div class="porto-title">Portofolio Kami</div>
     </div>
-</div>
 {{-- Akhir Hero Section Portofolio --}}
 
     <div class="container">
@@ -783,7 +892,7 @@
     </div>
 
     <footer>
-        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
+        <p>&copy; {{ date('Y') }} REKANAWADWELLING. All rights reserved.</p>
     </footer>
 
     {{-- MODAL (LIGHTBOX) --}}
@@ -806,6 +915,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger Menu Elements
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileNav = document.getElementById('mobileNav');
+            const closeButton = document.getElementById('closeButton');
+            const mobileNavLinks = mobileNav.querySelectorAll('ul li a');
+            const body = document.body; // Reference to the body element
+
+            // Modal Elements
             const portfolioCards = document.querySelectorAll('.portfolio-card');
             const modalOverlay = document.getElementById('portfolioModal');
             const modalImage = document.getElementById('modalImage');
@@ -819,6 +937,50 @@
             let currentImages = [];
             let currentImageIndex = 0;
 
+            // --- Hamburger Menu Functions ---
+            function openMobileMenu() {
+                mobileMenuOverlay.classList.add('active');
+                mobileNav.classList.add('active');
+                body.classList.add('menu-open'); // Prevent body scrolling
+            }
+
+            function closeMobileMenu() {
+                mobileMenuOverlay.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.classList.remove('menu-open'); // Allow body scrolling
+            }
+
+            // Event Listeners for Hamburger Menu
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', openMobileMenu);
+            }
+
+            if (closeButton) {
+                closeButton.addEventListener('click', closeMobileMenu);
+            }
+
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', function(event) {
+                    if (event.target === mobileMenuOverlay) { // Only close if clicking on the overlay itself
+                        closeMobileMenu();
+                    }
+                });
+            }
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu); // Close menu when a link is clicked
+            });
+
+            // Close mobile menu if window is resized to desktop view
+            window.addEventListener('resize', function() {
+                const desktopNav = document.querySelector('.main-nav');
+                if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+
+            // --- Modal (Lightbox) Functions ---
             function openModal(card) {
                 const title = card.dataset.title;
                 const location = card.dataset.location;
@@ -884,6 +1046,7 @@
                 document.body.style.overflow = ''; // Mengembalikan scroll body
             }
 
+            // Event Listeners for Modal
             portfolioCards.forEach(card => {
                 card.addEventListener('click', () => openModal(card));
             });
@@ -892,21 +1055,21 @@
             prevImageBtn.addEventListener('click', showPrevImage);
             nextImageBtn.addEventListener('click', showNextImage);
 
-            // Tutup modal jika klik di luar modal-content
-            modalOverlay.addEventListener('click', function(e) {
-                if (e.target === modalOverlay) {
+            // Close modal when clicking outside the modal content
+            modalOverlay.addEventListener('click', function(event) {
+                if (event.target === modalOverlay) {
                     closeModal();
                 }
             });
 
-            // Mendukung navigasi keyboard (opsional)
-            document.addEventListener('keydown', function(e) {
+            // Keyboard navigation for modal (optional)
+            document.addEventListener('keydown', function(event) {
                 if (modalOverlay.classList.contains('active')) {
-                    if (e.key === 'ArrowRight') {
+                    if (event.key === 'ArrowRight') {
                         showNextImage();
-                    } else if (e.key === 'ArrowLeft') {
+                    } else if (event.key === 'ArrowLeft') {
                         showPrevImage();
-                    } else if (e.key === 'Escape') {
+                    } else if (event.key === 'Escape') {
                         closeModal();
                     }
                 }
