@@ -31,6 +31,11 @@
             animation: fadeInBody 1s ease forwards;
         }
 
+        /* Prevent body scrolling when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
         /* Fade-in animasi untuk body */
         @keyframes fadeInBody {
             from { opacity: 0; transform: translateY(15px); }
@@ -282,6 +287,130 @@
             box-shadow: 0 4px 10px rgba(126,0,0,0.6);
         }
 
+        /* ... (other styles) ... */
+
+        /* --- HAMBURGER MENU & MOBILE NAV BARU --- */
+        .hamburger-menu {
+            display: none; /* Sembunyikan secara default */
+            font-size: 28px; /* Ukuran icon hamburger */
+            cursor: pointer;
+            color: var(--text-dark);
+            z-index: 1001;
+        }
+
+        .mobile-menu-overlay {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+            z-index: 998; /* Di bawah mobile-nav */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .mobile-menu-overlay.active {
+            display: block; /* Tampilkan overlay saat aktif */
+            opacity: 1;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -320px; /* Sembunyikan di luar layar */
+            width: 300px; /* Lebar menu slide-in */
+            height: 100%;
+            background-color: #333; /* Warna background menu mobile sesuai gambar */
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .mobile-nav.active {
+            right: 0; /* Geser ke dalam layar */
+        }
+
+        /* Styles for mobile-nav-header */
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--primary-color); /* Warna merah untuk header mobile menu */
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav-header .logo-area-mobile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-nav-header .logo-area-mobile img {
+            height: 35px; /* Ukuran logo di mobile menu header */
+        }
+
+        .mobile-nav-header .company-name-mobile {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .mobile-nav .close-button {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav .close-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Styles for mobile-nav ul/li/a */
+        .mobile-nav ul {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+            flex-grow: 1; /* Biarkan daftar menu mengisi sisa ruang */
+        }
+
+        .mobile-nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .mobile-nav ul li a:hover,
+        .mobile-nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--secondary-color); /* Emas saat aktif/hover */
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .main-header .main-nav {
+                display: none; /* Sembunyikan navigasi desktop di mobile */
+            }
+            .hamburger-menu {
+                display: block; /* Tampilkan ikon hamburger di mobile */
+            }
+            /* ... (other responsive styles) ... */
+        }
+
         /* MAP */
         .map-container {
             flex: 1 1 400px;
@@ -502,13 +631,13 @@
             }
 
             .main-header { /* New: Responsive for main-header */
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row; /* Kembali ke row, karena hamburger di kanan */
                 padding: 15px 20px;
+                justify-content: space-between; /* Untuk meletakkan logo di kiri dan hamburger di kanan */
             }
             .main-header .logo-area { /* New: Responsive for logo-area */
-                flex-direction: column;
-                margin-bottom: 15px;
+                flex-direction: row; /* Kembali ke row agar logo dan nama perusahaan sejajar */
+                margin-bottom: 0; /* Hapus margin bawah */
             }
             .main-header .main-nav { /* New: Responsive for main-nav */
                 flex-wrap: wrap;
@@ -589,20 +718,44 @@
         <div class="logo-area">
             <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">RND Properti</div>
+                <div class="company-name">Reka Nawa Dwelling</div>
                 <div class="tagline">Contractor & Consultant</div>
             </div>
         </div>
         <nav class="main-nav">
             <a href="/home">Home</a>
             <a href="/about">About</a>
-            <a href="/layanan">Layanan</a>
+            <a href="/layanan" class="active">Layanan</a>
             <a href="/portfolio">Portfolio</a>
             <a href="/property">Property</a>
             <a href="/homestay">Homestay</a>
-            <a href="/contact" class="active">Contact</a>
+            <a href="/contact">Contact</a>
         </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo-area-mobile">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+                <div class="company-name-mobile">Reka Nawa Dwelling</div>
+            </div>
+            <div class="close-button" id="closeButton">×</div>
+        </div>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/layanan" class="active">Layanan</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/property">Property</a></li>
+            <li><a href="/homestay">Homestay</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
 
     <section class="contact-hero">
         <div class="hero-content">
@@ -682,5 +835,92 @@
         </div>
     </footer>
 
-    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileNav = document.getElementById('mobileNav');
+            const closeButton = document.getElementById('closeButton');
+            // Check if mobileNav exists before querying its children
+            const mobileNavLinks = mobileNav ? mobileNav.querySelectorAll('ul li a') : [];
+            const body = document.body;
+
+            // Function to open the mobile menu
+            function openMobileMenu() {
+                mobileMenuOverlay.classList.add('active');
+                mobileNav.classList.add('active');
+                body.classList.add('menu-open'); // Add class to body to prevent scrolling
+            }
+
+            // Function to close the mobile menu
+            function closeMobileMenu() {
+                mobileMenuOverlay.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.classList.remove('menu-open'); // Remove class from body
+            }
+
+            // Event listener for hamburger icon click
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', openMobileMenu);
+            }
+
+            // Event listener for close button click
+            if (closeButton) {
+                closeButton.addEventListener('click', closeMobileMenu);
+            }
+
+            // Event listener for overlay click to close menu
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', function(event) {
+                    // Close only if clicking directly on the overlay, not on the menu itself
+                    if (event.target === mobileMenuOverlay) {
+                        closeMobileMenu();
+                    }
+                });
+            }
+
+            // Event listener for mobile navigation links click to close menu
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Handle window resize to close mobile menu if resized to desktop
+            window.addEventListener('resize', function() {
+                const desktopNav = document.querySelector('.main-nav');
+                // Check if desktopNav is visible and mobileMenu is active
+                // Also check if mobileNav exists to prevent errors
+                if (desktopNav && mobileNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Sidebar service content switching logic (existing from your code)
+            // Added null check for sidebarLinks and serviceSections as they might not exist on this page
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const serviceSections = document.querySelectorAll('.service-section');
+
+            if (sidebarLinks.length > 0 && serviceSections.length > 0) {
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault(); // Prevent default link behavior
+
+                        // Remove active class from all links and sections
+                        sidebarLinks.forEach(item => item.classList.remove('active'));
+                        serviceSections.forEach(section => section.classList.remove('active'));
+
+                        // Add active class to the clicked link
+                        this.classList.add('active');
+
+                        // Show the corresponding service section
+                        const targetId = this.dataset.target;
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            targetSection.classList.add('active');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
 </html>
