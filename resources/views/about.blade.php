@@ -6,8 +6,8 @@
     <title>About - RND Properti</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <style>
+        /* Variable Definitions */
         :root {
             --primary-color: #b40000;
             --secondary-color: gold;
@@ -18,6 +18,7 @@
             --border-color: #eee;
         }
 
+        /* General Body & Container */
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
@@ -25,8 +26,15 @@
             color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
+            font-size: 16px; /* Tambahkan ukuran font dasar */
         }
 
+        /* For preventing scroll when menu is open */
+        body.menu-open { /* Ubah dari .no-scroll menjadi .menu-open */
+            overflow: hidden;
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -37,6 +45,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Header Styles */
         .main-header {
             background-color: var(--light-bg);
             padding: 15px 40px;
@@ -44,6 +53,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 900; /* Pastikan header di atas konten biasa tapi di bawah overlay/menu */
             animation: fadeInDown 1s ease-out forwards;
         }
 
@@ -54,7 +66,7 @@
         }
 
         .main-header .logo-area img {
-            height: 40px;
+            height: 50px; /* Lebih besar dari sebelumnya */
         }
 
         .main-header .company-info {
@@ -71,35 +83,200 @@
         }
 
         .main-header .tagline {
-            font-size: 0.9rem;
+            font-size: 0.95rem; /* Sedikit lebih besar dari sebelumnya */
             color: #555;
             margin-top: 2px;
             font-weight: 500;
         }
 
-        .main-header .main-nav {
-            display: flex;
+        /* Desktop Navigation */
+        .main-nav { /* Ubah dari .desktop-nav menjadi .main-nav agar konsisten dengan home.html */
+            display: flex; /* Display by default for desktop */
             gap: 25px;
         }
 
-        .main-header .main-nav a {
+        .main-nav a { /* Ubah dari .desktop-nav a menjadi .main-nav a */
             color: #555;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 12px;
-            border-radius: 5px;
+            padding: 8px 0; /* Ubah padding untuk efek underline */
+            position: relative;
             transition: color 0.3s ease;
         }
 
-        .main-header .main-nav a:hover,
-        .main-header .main-nav a.active {
+        .main-nav a::after { /* Efek underline */
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover, /* Ubah dari .desktop-nav a:hover menjadi .main-nav a:hover */
+        .main-nav a.active { /* Ubah dari .desktop-nav a.active menjadi .main-nav a.active */
             color: var(--primary-color);
         }
 
+        .main-nav a:hover::after, /* Ubah dari .desktop-nav a:hover::after menjadi .main-nav a:hover::after */
+        .main-nav a.active::after { /* Ubah dari .desktop-nav a.active::after menjadi .main-nav a.active::after */
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger-menu {
+            display: none; /* Hidden by default, shown on mobile */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001; /* Ensure it's above other content */
+        }
+
+        .hamburger-menu .bar { /* Ini tidak lagi digunakan, tapi biarkan dulu untuk jaga-jaga */
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-dark);
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+        /* Style untuk Font Awesome icon di hamburger menu (jika menggunakan) */
+        .hamburger-menu .fas {
+            font-size: 1.8em; /* Ukuran ikon hamburger */
+            color: var(--text-dark);
+        }
+
+        /* Mobile Navigation (Sidebar) */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -280px; /* Start off-screen, sesuaikan dengan lebar */
+            width: 250px; /* Adjust width as needed */
+            height: 100%;
+            background-color: #333; /* Warna gelap untuk sidebar */
+            box-shadow: -3px 0 10px rgba(0,0,0,0.4);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .mobile-nav.active {
+            right: 0; /* Slide into view */
+        }
+
+        .mobile-nav-header {
+            background-color: var(--light-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .brand-logo-sidebar {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+        }
+
+        .logo-image-sidebar {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text-sidebar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 30px;
+            color: var(--text-dark);
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .mobile-nav ul li {
+            border-bottom: 1px solid #555;
+        }
+
+        .mobile-nav ul li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav ul li a:hover {
+            background-color: #555;
+        }
+
+        /* Styling for active link in sidebar */
+        .mobile-nav ul li a.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Warna gelap transparan */
+            z-index: 999;
+            display: none; /* Sembunyikan secara default */
+            opacity: 0; /* Dimulai dengan transparan penuh */
+            transition: opacity 0.3s ease; /* Transisi untuk fade in/out */
+        }
+
+        .menu-overlay.active {
+            display: block; /* Tampilkan saat aktif */
+            opacity: 1; /* Fade in */
+        }
+
+        /* Content shift when menu is open (optional, adjust if main content is wrapped) */
+        body.menu-open .hero-banner,
+        body.menu-open .container,
+        body.menu-open footer {
+            transform: translateX(-250px); /* Geser konten ke kiri sesuai lebar menu */
+            transition: transform 0.3s ease;
+        }
+
+
+        /* Hero Banner */
         .hero-banner {
             width: 100%;
-            height: 300px; /* Adjust height as needed */
-            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Using the provided image */
+            height: 300px;
+            background-image: url('{{ asset('assets/images/salaman.png') }}');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -119,7 +296,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            background-color: rgba(0, 0, 0, 0.4);
             z-index: -1;
         }
 
@@ -147,19 +324,20 @@
             animation: fadeInUp 1s ease-out forwards;
         }
 
-
+        /* Container for main content */
         .container {
             max-width: 1200px;
             margin: auto;
             padding: 40px 20px;
         }
 
+        /* Section Titles and Underlines */
         .section-title {
             font-size: 36px;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 10px;
-            color: #111;
+            color: var(--text-dark);
             animation: fadeInUp 1s ease-out forwards;
         }
 
@@ -178,6 +356,7 @@
             animation: fadeInUp 1.2s ease-out forwards;
         }
 
+        /* Brief Section */
         .brief {
             display: flex;
             gap: 20px;
@@ -199,6 +378,7 @@
             margin-bottom: 10px;
         }
 
+        /* Highlight Section */
         .highlight-section {
             display: flex;
             flex-wrap: wrap;
@@ -244,6 +424,7 @@
             height: auto;
         }
 
+        /* Vision & Mission Section */
         .vision-mission-section {
             margin-top: 50px;
         }
@@ -302,6 +483,7 @@
             margin-right: 15px;
         }
 
+        /* CTA Section */
         .cta {
             text-align: center;
             margin-top: 60px;
@@ -328,6 +510,7 @@
             background: #7e0000;
         }
 
+        /* Priority Section */
         .priority-section {
             display: flex;
             flex-wrap: wrap;
@@ -353,13 +536,13 @@
             position: relative;
             background: #c5cfd4;
             max-height: 350px;
-            overflow: hidden; /* Ensures image doesn't overflow */
+            overflow: hidden;
         }
 
         .priority-image img {
             width: 100%;
-            height: 100%; /* Make image fill the container */
-            object-fit: cover; /* Cover the area without distortion */
+            height: 100%;
+            object-fit: cover;
         }
 
         .yellow-strip {
@@ -371,6 +554,7 @@
             left: 0;
         }
 
+        /* Footer */
         footer {
             background: var(--dark-bg);
             color: white;
@@ -383,20 +567,15 @@
         /* Responsive adjustments */
         @media (max-width: 992px) {
             .main-header {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 15px 20px;
+                padding: 15px 20px; /* Adjust padding for smaller screens */
             }
 
-            .main-header .main-nav {
-                margin-top: 15px;
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
+            .main-nav { /* Sembunyikan desktop nav di layar yang lebih kecil */
+                display: none;
             }
 
-            .main-header .main-nav a {
-                padding: 5px 10px;
+            .hamburger-menu { /* Tampilkan hamburger di layar yang lebih kecil */
+                display: block;
             }
 
             .hero-banner {
@@ -452,6 +631,9 @@
         }
 
         @media (max-width: 576px) {
+            .main-header {
+                padding: 10px 15px;
+            }
             .main-header .company-name {
                 font-size: 1.3rem;
             }
@@ -460,8 +642,8 @@
                 font-size: 0.8rem;
             }
 
-            .main-header .main-nav {
-                gap: 10px;
+            .main-header .logo-area {
+                gap: 5px; /* Adjust gap for smaller screens */
             }
 
             .hero-banner {
@@ -491,12 +673,17 @@
 
     <header class="main-header">
         <div class="logo-area">
-            <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            <a href="/home">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+            </a>
             <div class="company-info">
                 <div class="company-name">RND Properti</div>
                 <div class="tagline">Contractor & Consultant</div>
             </div>
         </div>
+        <button class="hamburger-menu" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i> </button>
+
         <nav class="main-nav">
             <a href="/home">Home</a>
             <a href="/about" class="active">About</a>
@@ -507,6 +694,28 @@
             <a href="/contact">Contact</a>
         </nav>
     </header>
+
+    <div class="menu-overlay"></div>
+
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="#" class="brand-logo-sidebar">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="Reka Nawa Dwelling Logo" class="logo-image-sidebar">
+                <span class="logo-text-sidebar">Reka Nawa Dwelling</span>
+            </a>
+            <button class="close-menu" aria-label="Close navigation">
+                <i class="fas fa-times close-icon"></i> </button>
+        </div>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about" class="active">About</a></li>
+            <li><a href="/layanan">Layanan</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/property">Property</a></li>
+            <li><a href="/homestay">Homestay</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
 
     <div class="hero-banner">
         <div class="breadcrumbs">
@@ -533,7 +742,7 @@
 
         <div class="highlight-section">
             <div class="highlight-left">
-                <h2>DESAIN CERDAS,<br>HUNIAN BERKualitas.</h2>
+                <h2>DESAIN CERDAS,<br>HUNIAN BERKUALITAS.</h2>
                 <img src="{{ asset('assets/images/LoGoo.png') }}" alt="Desain Icon">
             </div>
             <div class="highlight-right">
@@ -584,5 +793,50 @@
         <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const closeMenuBtn = document.querySelector('.close-menu');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            const body = document.body;
+
+            // Function to open/close the mobile menu
+            function toggleMobileMenu() {
+                mobileNav.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                body.classList.toggle('menu-open'); // Menggunakan class menu-open
+            }
+
+            // Event Listeners
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', toggleMobileMenu);
+            }
+            if (closeMenuBtn) {
+                closeMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            if (menuOverlay) {
+                menuOverlay.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close menu when a navigation link is clicked
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav ul li a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mobileNav.classList.contains('active')) {
+                        toggleMobileMenu(); // Close the menu if it's open
+                    }
+                });
+            });
+
+            // Handle window resize to ensure correct menu state
+            window.addEventListener('resize', function() {
+                const desktopNav = document.querySelector('.main-nav'); // Menggunakan .main-nav
+                if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+                    toggleMobileMenu(); // Close mobile menu if it's open and now on desktop
+                }
+            });
+        });
+    </script>
 </body>
 </html>

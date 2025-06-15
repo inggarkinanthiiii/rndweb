@@ -24,7 +24,7 @@
             font-family: 'Inter', sans-serif;
             background: var(--light-bg);
             color: var(--text-dark);
-            overflow-x: hidden;
+            overflow-x: hidden; /* Penting untuk mencegah scrollbar horizontal saat menu terbuka */
             line-height: 1.7; /* Sedikit lebih lega */
             font-size: 16px;
         }
@@ -53,6 +53,8 @@
             align-items: center;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
             animation: fadeInDown 1s ease-out forwards; /* Animasi untuk header */
+            position: relative; /* Penting untuk z-index hamburger */
+            z-index: 900; /* Pastikan header di atas konten biasa tapi di bawah overlay/menu */
         }
 
 
@@ -258,7 +260,7 @@
             padding: 60px 20px; /* Padding section lebih besar */
         }
 
-        .section-title {.
+        .section-title {
             font-size: 38px; /* Lebih besar */
             font-weight: 700;
             text-transform: uppercase;
@@ -472,7 +474,7 @@
         .cta-section {
             background-color: var(--primary-color); /* Warna utama */
             color: var(--text-light);
-            padding: 80px 20px;
+            padding: 10px 5px;
             text-align: center;
             margin-top: 60px;
             animation: fadeInUp 1.8s ease-out forwards;
@@ -536,12 +538,17 @@
         .contact-rnd-section {
             background-color: var(--primary-color); /* Red background */
             color: var(--text-light);
-            padding: 5px 0; 
-            justify-content: center;
-            align-items: flex-start;
-            gap: 10px;
+            padding: 10px 0 0;
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0px;
             flex-wrap: wrap;
             font-family: 'Inter', sans-serif;
+            animation: fadeInUp 1.2s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.3s
         }
 
         .contact-rnd-section .container {
@@ -611,10 +618,14 @@
             color: var(--text-light);
             text-align: center;
             padding: 20px 0;
-            font-size: 0.9em;
+            font-size: 0.85em;
             border-top: 1px solid rgba(255, 255, 255, 0.2); /* Subtle line above */
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.6s;
             margin-top: 20px; /* Space from the main contact/R&D content */
         }
+
 
 
         footer {
@@ -652,25 +663,185 @@
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
+        /* --- NEW CSS FOR MOBILE MENU (SIDEBAR) --- */
+        /* Hamburger menu styling */
+        .hamburger-menu {
+            display: none; /* Sembunyikan secara default di desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001; /* Pastikan di atas konten lain saat menu terbuka */
+        }
+
+        /* Menggunakan 3 span untuk ikon hamburger */
+        .hamburger-menu .bar {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-dark); /* Warna garis hamburger */
+            margin: 6px 0; /* Jarak antar garis */
+            transition: 0.4s; /* Transisi halus */
+        }
+
+        /* Mobile Navigation (Sidebar) Styling */
+        .mobile-nav {
+            position: fixed; /* Tetap di tempat saat digulir */
+            top: 0;
+            right: -280px; /* Sembunyikan di luar layar (sesuaikan lebar menu + sedikit) */
+            width: 250px; /* Lebar menu sidebar (sesuaikan) */
+            height: 100%;
+            background-color: #333; /* Warna latar belakang gelap untuk sidebar */
+            box-shadow: -3px 0 10px rgba(0,0,0,0.4);
+            transition: right 0.3s ease; /* Transisi saat muncul/sembunyi */
+            z-index: 1000; /* Pastikan di atas overlay */
+            display: flex; /* Untuk flexbox di dalam header sidebar */
+            flex-direction: column; /* Konten di sidebar tersusun vertikal */
+        }
+
+        .mobile-nav.active {
+            right: 0; /* Geser masuk ke layar saat aktif */
+        }
+
+        /* Header di dalam Sidebar Menu */
+        .mobile-nav-header {
+            background-color: var(--light-bg); /* Latar belakang seperti header utama */
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0; /* Jangan biarkan menyusut */
+        }
+
+        .brand-logo-sidebar {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+        }
+
+        .logo-image-sidebar {
+            height: 40px; /* Sesuaikan ukuran logo di sidebar */
+            width: auto;
+        }
+
+        .logo-text-sidebar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem; /* Sesuaikan ukuran teks di sidebar */
+            font-weight: 700;
+            color: var(--primary-color); /* Warna merah gelap */
+        }
+
+        /* Close Menu Button */
+        .close-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 30px; /* Ukuran ikon 'X' */
+            color: var(--text-dark); /* Warna ikon 'X' */
+            line-height: 1; /* Untuk memastikan 'X' di tengah */
+            font-weight: bold;
+        }
+
+        /* Menu List Styling */
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Biarkan daftar menu mengisi sisa ruang */
+            overflow-y: auto; /* Jika menu terlalu panjang, bisa digulir */
+        }
+
+        .mobile-nav ul li {
+            border-bottom: 1px solid #555; /* Garis pemisah item menu */
+        }
+
+        .mobile-nav ul li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--text-light); /* Warna teks menu */
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav ul li a:hover {
+            background-color: #555; /* Warna hover */
+        }
+
+        /* Styling for active link in sidebar */
+        .mobile-nav ul li a.active { /* Sesuaikan dengan class 'active' yang sudah ada */
+            background-color: var(--primary-color); /* Warna merah seperti di gambar */
+            color: #fff; /* Warna teks putih */
+        }
+
+        /* Overlay Styling */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Warna gelap transparan */
+            z-index: 999; /* Di bawah menu sidebar tapi di atas konten */
+            display: none; /* Sembunyikan secara default */
+            opacity: 0; /* Dimulai dengan transparan penuh */
+            transition: opacity 0.3s ease; /* Transisi untuk fade in/out */
+        }
+
+        .menu-overlay.active {
+            display: block; /* Tampilkan saat aktif */
+            opacity: 1; /* Fade in */
+        }
+
+        /* Content shift when menu is open (optional) */
+        body.menu-open .main-content,
+        body.menu-open .carousel-container,
+        body.menu-open .whatsapp-float {
+            transform: translateX(-250px); /* Geser konten ke kiri sesuai lebar menu */
+            transition: transform 0.3s ease;
+        }
+        body.menu-open {
+            overflow: hidden; /* Mencegah scroll body saat menu terbuka */
+        }
 
         /* Responsive adjustments */
         @media (max-width: 992px) {
             .main-header {
-                flex-direction: column;
-                align-items: center; /* Tengahkan item */
+                /* flex-direction: column; <--- Hapus ini agar logo dan hamburger tetap sejajar */
+                /* align-items: center; <--- Hapus ini */
                 padding: 15px 20px;
             }
 
             .main-header .main-nav {
-                margin-top: 15px;
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 15px; /* Jarak antar nav item */
+                display: none; /* Sembunyikan navigasi utama di mobile */
             }
 
-            .main-header .main-nav a {
-                padding: 5px 10px;
+            /* Tampilkan hamburger menu di mobile */
+            .hamburger-menu {
+                display: block;
+            }
+
+            .main-header .logo-area {
+                gap: 5px; /* Kurangi gap */
+            }
+
+            .main-header .logo-area img {
+                height: 40px; /* Lebih kecil di tablet */
+            }
+
+            .main-header .company-name {
+                font-size: 1.3rem;
+            }
+
+            .main-header .tagline {
+                font-size: 0.85rem;
             }
 
             .carousel-container {
@@ -738,6 +909,23 @@
             }
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-section {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+
         @media (max-width: 576px) {
             .main-header {
                 padding: 10px 15px;
@@ -751,12 +939,7 @@
             .main-header .tagline {
                 font-size: 0.75rem;
             }
-            .main-header .main-nav {
-                gap: 8px;
-            }
-            .main-header .main-nav a {
-                font-size: 0.9em;
-            }
+            /* .main-header .main-nav is already hidden by 992px media query */
 
             .carousel-container {
                 height: 350px;
@@ -840,8 +1023,14 @@
                 <div class="tagline">Contractor & Consultant</div>
             </div>
         </div>
+        <button class="hamburger-menu" aria-label="Toggle navigation">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
         <nav class="main-nav">
-            <a href="/home"  class="active">Home</a>
+            <a href="/home" class="active">Home</a>
             <a href="/about">About</a>
             <a href="/layanan">Layanan</a>
             <a href="/portfolio">Portfolio</a>
@@ -849,124 +1038,144 @@
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
         </nav>
-    </header>   
+    </header>
 
-    <div class="carousel-container">
-        <div class="carousel-slide active" style="background-image: url('{{ asset('assets/images/gedung.jpg') }}');">
-            <div class="carousel-content">
-                <h2>Selamat Datang di Reka Nawa Dwelling</h2>
-                <p>Mitra terpercaya Anda dalam menciptakan ruang hidup dan usaha yang inovatif, berkelanjutan, dan berdampak positif.</p>
-            </div>
+    <div class="menu-overlay"></div>
+
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="#" class="brand-logo-sidebar">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="Reka Nawa Dwelling Logo" class="logo-image-sidebar">
+                <span class="logo-text-sidebar">Reka Nawa Dwelling</span>
+            </a>
+            <button class="close-menu" aria-label="Close navigation">
+                <i class="fas fa-times close-icon"></i> </button>
         </div>
+        <ul>
+            <li><a href="/home" class="active">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/layanan">Layanan</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/property">Property</a></li>
+            <li><a href="/homestay">Homestay</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <div class="carousel-slide" style="background-image: url('{{ asset('assets/images/port18.png') }}');">
-            <div class="carousel-content">
-                <h2>VISI KAMI</h2>
-                <p>Menjadi perusahaan terdepan dalam menciptakan ruang hidup dan usaha yang inovatif, berkelanjutan, dan berdampak positif bagi masyarakat.</p>
-            </div>
-        </div>
-
-        <div class="carousel-slide" style="background-image: url('{{ asset('assets/images/port39.png') }}');">
-            <div class="carousel-content">
-                <h2>MISI KAMI</h2>
-                <p>Menyediakan layanan arsitektur, konstruksi, dan pengembangan properti yang profesional, efisien, dan berorientasi pada kualitas. Menghadirkan solusi desain dan bangunan yang fungsional, estetis, dan ramah lingkungan.</p>
-            </div>
-        </div>
-
-        <div class="carousel-nav">
-            <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
-            <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
-        </div>
-
-        <div class="carousel-dots">
-            {{-- Dots akan dibuat otomatis oleh JavaScript --}}
-        </div>
-    </div>
-
-    {{-- About Us Section --}}
-    <section id="about-us" class="container">
-        <h2 class="section-title">Tentang Reka Nawa Dwelling</h2>
-        <div class="underline"></div>
-        <p class="section-subtitle">A brief story about our company, vision, and mission.</p>
-
-        <div class="about-us-section">
-            <div class="about-image">
-                {{-- Ganti dengan gambar yang merepresentasikan RND, misalnya tim kerja, atau proyek yang sedang berjalan --}}
-                <img src="{{ asset('assets/images/port39.png') }}" alt="About RND">
-            </div>
-            <div class="about-content">
-                <p>
-                    Reka Nawa Dwelling (RND) adalah perusahaan yang berdedikasi di bidang Arsitektur, Kontraktor, dan Pengembangan Properti. Kami hadir untuk menyediakan solusi terpadu dalam perencanaan, pelaksanaan, dan optimalisasi aset properti.
-                </p>
-                <p>
-                    Fokus utama kami adalah pada **kualitas, ketepatan waktu, dan nilai berkelanjutan**. Didukung oleh tim profesional yang kompeten, RND berkomitmen menjadi mitra strategis Anda dalam mewujudkan ruang yang fungsional, estetis, dan bernilai ekonomi tinggi.
-                </p>
-                <a href="/about" class="btn-primary">Pelajari Lebih Lanjut</a>
-            </div>
-        </div>
-    </section>
-
-    {{-- Our Services Section --}}
-    <section id="services" class="container" style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-        <h2 class="section-title">Layanan Kami</h2>
-        <div class="underline"></div>
-        <p class="section-subtitle">Kami menyediakan layanan komprehensif untuk kebutuhan properti Anda.</p>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-building icon"></i> {{-- Icon Building for Architecture --}}
-                <h3>Arsitektur</h3>
-                <p>Desain inovatif dan fungsional untuk hunian dan ruang usaha yang estetis, efisien, dan sesuai dengan visi Anda.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-hard-hat icon"></i> {{-- Icon Hard Hat for Contractor --}}
-                <h3>Kontraktor</h3>
-                <p>Pelaksanaan konstruksi dengan standar kualitas tertinggi, tepat waktu, dan sesuai anggaran yang telah disepakati.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-chart-line icon"></i> {{-- Icon Chart Line for Property Development --}}
-                <h3>Pengembangan Properti</h3>
-                <p>Menciptakan aset properti bernilai tinggi, mulai dari studi kelayakan, perencanaan, hingga pemasaran dan penjualan.</p>
-            </div>
-        </div>
-    </section>
-
-{{-- Featured Projects Section --}}
-    <section id="projects" class="container">
-        <h2 class="section-title">Proyek Unggulan Kami</h2>
-        <div class="underline"></div>
-        <p class="section-subtitle">Beberapa karya terbaik Reka Nawa Dwelling yang telah kami wujudkan.</p>
-
-        <div class="projects-grid">
-            <div class="project-card">
-                <img src="{{ asset('assets/images/port6.png') }}" alt="The Modern House Homestay">
-                <div class="project-content">
-                    <h3>The Colonial Homestay</h3>
-                    <p>Jl. Pacar No.7,Baciro Baru,Gondokusuman, Yohyakarta</p>
-                    {{-- Tombol "Lihat Detail" tetap dihapus --}}
+    <main class="main-content">
+        <div class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('{{ asset('assets/images/gedung.jpg') }}');">
+                <div class="carousel-content">
+                    <h2>Selamat Datang di Reka Nawa Dwelling</h2>
+                    <p>Mitra terpercaya Anda dalam menciptakan ruang hidup dan usaha yang inovatif, berkelanjutan, dan berdampak positif.</p>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="{{ asset('assets/images/port20.png') }}" alt="Modern Minimalist Villa">
-                <div class="project-content">
-                    <h3>Rumah Minimalis</h3>
-                    <p>Tawangsari, Kocoran, Catuetunggal, Depok, Sleman</p>
-                    {{-- Tombol "Lihat Detail" tetap dihapus --}}
+
+            <div class="carousel-slide" style="background-image: url('{{ asset('assets/images/port18.png') }}');">
+                <div class="carousel-content">
+                    <h2>VISI KAMI</h2>
+                    <p>Menjadi perusahaan terdepan dalam menciptakan ruang hidup dan usaha yang inovatif, berkelanjutan, dan berdampak positif bagi masyarakat.</p>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="{{ asset('assets/images/port25.png') }}" alt="Renovasi Kantor Modern">
-                <div class="project-content">
-                    <h3>Masjid Peradaban Al-Kausar</h3>
-                    <p>Gedongan, Sinduadi, Mlati, Sleman,DIY.</p>
-                    {{-- Tombol "Lihat Detail" tetap dihapus --}}
+
+            <div class="carousel-slide" style="background-image: url('{{ asset('assets/images/port39.png') }}');">
+                <div class="carousel-content">
+                    <h2>MISI KAMI</h2>
+                    <p>Menyediakan layanan arsitektur, konstruksi, dan pengembangan properti yang profesional, efisien, dan berorientasi pada kualitas. Menghadirkan solusi desain dan bangunan yang fungsional, estetis, dan ramah lingkungan.</p>
                 </div>
             </div>
+
+            <div class="carousel-nav">
+                <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="carousel-dots">
+                {{-- Dots akan dibuat otomatis oleh JavaScript --}}
+            </div>
         </div>
-        <div class="view-all-projects-btn">
-            <a href="/portfolio" class="btn-primary">Lihat Semua Proyek</a>
-        </div>
-    </section>
+
+        {{-- About Us Section --}}
+        <section id="about-us" class="container">
+            <h2 class="section-title">Tentang Reka Nawa Dwelling</h2>
+            <div class="underline"></div>
+            <p class="section-subtitle">A brief story about our company, vision, and mission.</p>
+
+            <div class="about-us-section">
+                <div class="about-image">
+                    {{-- Ganti dengan gambar yang merepresentasikan RND, misalnya tim kerja, atau proyek yang sedang berjalan --}}
+                    <img src="{{ asset('assets/images/port39.png') }}" alt="About RND">
+                </div>
+                <div class="about-content">
+                    <p>
+                        Reka Nawa Dwelling (RND) adalah perusahaan yang berdedikasi di bidang Arsitektur, Kontraktor, dan Pengembangan Properti. Kami hadir untuk menyediakan solusi terpadu dalam perencanaan, pelaksanaan, dan optimalisasi aset properti.
+                    </p>
+                    <p>
+                        Fokus utama kami adalah pada **kualitas, ketepatan waktu, dan nilai berkelanjutan**. Didukung oleh tim profesional yang kompeten, RND berkomitmen menjadi mitra strategis Anda dalam mewujudkan ruang yang fungsional, estetis, dan bernilai ekonomi tinggi.
+                    </p>
+                    <a href="/about" class="btn-primary">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </section>
+
+        {{-- Our Services Section --}}
+        <section id="services" class="container" style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <h2 class="section-title">Layanan Kami</h2>
+            <div class="underline"></div>
+            <p class="section-subtitle">Kami menyediakan layanan komprehensif untuk kebutuhan properti Anda.</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-building icon"></i> {{-- Icon Building for Architecture --}}
+                    <h3>Arsitektur</h3>
+                    <p>Desain inovatif dan fungsional untuk hunian dan ruang usaha yang estetis, efisien, dan sesuai dengan visi Anda.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-hard-hat icon"></i> {{-- Icon Hard Hat for Contractor --}}
+                    <h3>Kontraktor</h3>
+                    <p>Pelaksanaan konstruksi dengan standar kualitas tertinggi, tepat waktu, dan sesuai anggaran yang telah disepakati.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-line icon"></i> {{-- Icon Chart Line for Property Development --}}
+                    <h3>Pengembangan Properti</h3>
+                    <p>Menciptakan aset properti bernilai tinggi, mulai dari studi kelayakan, perencanaan, hingga pemasaran dan penjualan.</p>
+                </div>
+            </div>
+        </section>
+
+        {{-- Featured Projects Section --}}
+        <section id="projects" class="container">
+            <h2 class="section-title">Proyek Unggulan Kami</h2>
+            <div class="underline"></div>
+            <p class="section-subtitle">Beberapa karya terbaik Reka Nawa Dwelling yang telah kami wujudkan.</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="{{ asset('assets/images/port6.png') }}" alt="The Modern House Homestay">
+                    <div class="project-content">
+                        <h3>The Colonial Homestay</h3>
+                        <p>Jl. Pacar No.7,Baciro Baru,Gondokusuman, Yogyakarta</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="{{ asset('assets/images/port20.png') }}" alt="Modern Minimalist Villa">
+                    <div class="project-content">
+                        <h3>Rumah Minimalis</h3>
+                        <p>Tawangsari, Kocoran, Caturtunggal, Depok, Sleman</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="{{ asset('assets/images/port25.png') }}" alt="Renovasi Kantor Modern">
+                    <div class="project-content">
+                        <h3>Masjid Peradaban Al-Kausar</h3>
+                        <p>Gedongan, Sinduadi, Mlati, Sleman, DIY.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-projects-btn">
+                <a href="/portfolio" class="btn-primary">Lihat Semua Proyek</a>
+            </div>
+        </section>
 
     {{-- Call to Action Section (Existing) --}}
     <section class="cta-section">
@@ -1016,93 +1225,121 @@
             <a href="/privacy-policy">Kebijakan Privasi</a>
             <a href="/terms-of-service">Syarat & Ketentuan</a>
         </div>
+        
     </footer>
     <a href="https://wa.me/6281234567890" class="whatsapp-float" target="_blank">
         <img src="{{ asset('assets/images/wwa.png') }}" alt="WhatsApp">
     </a>
-
     <script>
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        const prevButton = document.querySelector('.prev-slide');
-        const nextButton = document.querySelector('.next-slide');
-        let currentSlide = 0;
-        let slideInterval;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carousel Logic
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            const prevBtn = document.querySelector('.prev-slide');
+            const nextBtn = document.querySelector('.next-slide');
+            let currentSlide = 0;
+            let slideInterval; // Variable to hold the interval timer
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-            });
-            // Delay adding 'active' class slightly for a better zoom effect with the fade
-            setTimeout(() => {
-                slides[index].classList.add('active');
-            }, 50); // Small delay
-            updateDots(index);
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function startSlideShow() {
-            slideInterval = setInterval(nextSlide, 6000); // Ganti slide setiap 6 detik
-        }
-
-        function pauseSlideShow() {
-            clearInterval(slideInterval);
-        }
-
-        function createDots() {
-            slides.forEach((_, i) => {
-                const dot = document.createElement('span');
-                dot.classList.add('carousel-dot');
-                dot.setAttribute('data-index', i);
-                dot.addEventListener('click', () => {
-                    showSlide(i);
-                    pauseSlideShow();
-                    startSlideShow(); // Restart timer after manual click
+            function createDots() {
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('carousel-dot');
+                    if (index === 0) {
+                        dot.classList.add('active');
+                    }
+                    dot.dataset.index = index;
+                    dotsContainer.appendChild(dot);
                 });
-                dotsContainer.appendChild(dot);
-            });
-            updateDots(0);
-        }
+            }
 
-        function updateDots(activeIndex) {
-            const dots = document.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, i) => {
-                dot.classList.remove('active');
-                if (i === activeIndex) {
-                    dot.classList.add('active');
+            function showSlide(index) {
+                // Deactivate all slides and dots
+                slides.forEach(slide => slide.classList.remove('active'));
+                document.querySelectorAll('.carousel-dot').forEach(dot => dot.classList.remove('active'));
+
+                // Activate the current slide and dot
+                slides[index].classList.add('active');
+                document.querySelectorAll('.carousel-dot')[index].classList.add('active');
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function startAutoSlide() {
+                stopAutoSlide(); // Clear any existing interval
+                slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            }
+
+            function stopAutoSlide() {
+                clearInterval(slideInterval);
+            }
+
+            // Event listeners for carousel
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startAutoSlide(); // Restart timer after manual navigation
+            });
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                startAutoSlide(); // Restart timer after manual navigation
+            });
+
+            dotsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('carousel-dot')) {
+                    const index = parseInt(e.target.dataset.index);
+                    showSlide(index);
+                    startAutoSlide(); // Restart timer after manual navigation
                 }
             });
-        }
 
-        // Event Listeners for navigation buttons
-        prevButton.addEventListener('click', () => {
-            prevSlide();
-            pauseSlideShow();
-            startSlideShow(); // Restart timer after manual click
-        });
-
-        nextButton.addEventListener('click', () => {
-            nextSlide();
-            pauseSlideShow();
-            startSlideShow(); // Restart timer after manual click
-        });
-
-        // Initialize carousel
-        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize carousel
             createDots();
             showSlide(currentSlide);
-            startSlideShow();
+            startAutoSlide(); // Start auto-sliding when page loads
+
+            // Pause auto-sliding on hover
+            const carousel = document.querySelector('.carousel-container');
+            carousel.addEventListener('mouseenter', stopAutoSlide);
+            carousel.addEventListener('mouseleave', startAutoSlide);
+
+
+            // --- NEW JAVASCRIPT FOR MOBILE MENU (SIDEBAR) ---
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const closeMenu = document.querySelector('.close-menu');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            const body = document.body;
+
+            function openMobileMenu() {
+                mobileNav.classList.add('active');
+                menuOverlay.classList.add('active');
+                body.classList.add('menu-open');
+            }
+
+            function closeMobileMenu() {
+                mobileNav.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+
+            // Event Listeners for mobile menu
+            hamburgerMenu.addEventListener('click', openMobileMenu);
+            closeMenu.addEventListener('click', closeMobileMenu);
+            menuOverlay.addEventListener('click', closeMobileMenu);
+
+            // Close menu when a link inside mobile nav is clicked
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
         });
     </script>
-
 </body>
 </html>
