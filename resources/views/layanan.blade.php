@@ -27,6 +27,12 @@
             color: var(--text-dark);
             overflow-x: hidden; /* Mencegah scrollbar horizontal karena animasi */
             line-height: 1.6;
+            /* Pastikan box-sizing global sudah diatur */
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
         }
 
         body.menu-open { /* Tambahkan ini untuk mencegah scrolling saat menu terbuka */
@@ -234,14 +240,20 @@
 
         /* --- LAYANAN HERO SECTION BARU --- */
         .layanan-hero {
-            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Ganti dengan gambar latar belakang untuk halaman layanan */
+                    
+            width: 100%;
+            height: 300px;
+            background-image: url('{{ asset('assets/images/salaman.png') }}');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             color: white;
+            padding-left: 10%; /* Akan diatur ulang di media query */
+            box-sizing: border-box; /* Pastikan ini juga, meskipun sudah global */
             position: relative;
-            text-align: left;
+            z-index: 1;
         }
 
         .layanan-hero::after {
@@ -284,7 +296,7 @@
             flex-wrap: wrap; /* Memungkinkan wrap pada layar kecil */
             max-width: 1200px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 20px; /* Sesuaikan ini di mobile */
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -345,8 +357,8 @@
         /* Konten Utama Layanan */
         .layanan-content-area {
             flex: 1; /* Konten akan mengambil sisa ruang */
-            padding: 20px 40px;
-            min-width: 300px; /* Lebar minimum sebelum wrap */
+            padding: 20px 40px; /* Sesuaikan ini di mobile */
+            min-width: 300px; /* Lebar minimum sebelum wrap - Akan di-override di mobile */
         }
 
         .layanan-content-area h1 {
@@ -380,7 +392,7 @@
 
         .service-text {
             flex: 1;
-            min-width: 280px;
+            min-width: 280px; /* Akan di-override di mobile */
         }
 
         .service-text h2 {
@@ -446,7 +458,7 @@
 
         /* Gaya untuk elemen visual "Desain Arsitektur" */
         .architectural-design-visual {
-            flex: 0 0 300px; /* Lebar tetap untuk visual */
+            flex: 0 0 300px; /* Lebar tetap untuk visual - Akan di-override di mobile */
             height: 200px; /* Tinggi tetap untuk visual */
             background-color: #e0f2f7; /* Latar belakang biru muda */
             display: flex;
@@ -466,7 +478,7 @@
 
         /* Gaya untuk gambar layanan (Kontraktor Umum dan Pengembangan Properti) */
         .service-image {
-            flex: 0 0 400px; /* Lebar tetap untuk gambar */
+            flex: 0 0 400px; /* Lebar tetap untuk gambar - Akan di-override di mobile */
             max-width: 100%; /* Pastikan responsif */
             border-radius: 8px;
             overflow: hidden;
@@ -478,21 +490,32 @@
 
         .service-image img {
             width: 100%;
-            height: auto;
+            height: auto; /* Biarkan tinggi menyesuaikan agar tidak terdistorsi */
             display: block;
             object-fit: cover;
         }
 
-        /* Footer (dari halaman sebelumnya) */
+  
         footer {
-            background: var(--dark-bg); /* Menggunakan variabel */
-            color: white;
+            background: var(--dark-bg);
+            color: var(--text-light);
             text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-            opacity: 0; /* Mulai tersembunyi */
-            animation: fadeInUp 1s ease-out forwards;
-            animation-delay: 2.5s; /* Muncul paling akhir */
+            padding: 30px; /* Sedikit lebih tinggi */
+            margin-top: 0; /* Adjust margin as new section will be before it */
+            animation: fadeInUp 2.1s ease-out forwards;
+            font-size: 0.95em;
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+        footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: white;
         }
 
         /* Text "Anda adalah prioritas kami" */
@@ -509,12 +532,14 @@
                 flex-direction: row;
                 justify-content: space-between;
             }
+
             .main-header .main-nav {
                 display: none; /* Sembunyikan navigasi desktop di mobile */
             }
             .hamburger-menu {
                 display: block; /* Tampilkan ikon hamburger di mobile */
             }
+
             .main-header .logo-area {
                 flex-direction: row;
                 margin-bottom: 0;
@@ -541,22 +566,22 @@
             .layanan-main-container {
                 flex-direction: column;
                 margin: 20px auto;
-                padding: 15px;
+                padding: 15px; /* Mengurangi padding horizontal untuk mobile */
             }
 
             .layanan-sidebar {
-                flex: 0 0 100%;
+                flex: 0 0 100%; /* Sidebar mengambil lebar penuh */
                 border-right: none;
                 border-bottom: 1px solid #eee;
                 border-radius: 8px 8px 0 0;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-                order: -1;
+                order: -1; /* Pindahkan sidebar ke atas konten utama */
             }
 
             .layanan-content-area {
-                padding: 20px 15px;
-                min-width: unset;
-                width: 100%;
+                padding: 20px 15px; /* Mengurangi padding horizontal untuk konten utama */
+                min-width: unset; /* Hapus batasan min-width */
+                width: 100%; /* Pastikan mengambil lebar penuh */
             }
 
             .layanan-content-area h1 {
@@ -564,22 +589,24 @@
             }
 
             .service-header {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: column; /* Jadikan kolom untuk tumpukan vertikal */
+                align-items: center; /* Pusatkan item secara horizontal */
+                gap: 20px; /* Kurangi gap jika perlu */
             }
 
             .service-text {
-                min-width: unset;
-                width: 100%;
+                min-width: unset; /* Hapus batasan min-width */
+                width: 100%; /* Pastikan mengambil lebar penuh */
             }
 
             .architectural-design-visual,
             .service-image {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                margin-left: 0;
-                margin-top: 20px;
+                flex: 0 0 auto; /* Reset flex basis */
+                width: 100%; /* Ambil lebar penuh */
+                height: 200px; /* Pertahankan tinggi atau sesuaikan */
+                /* object-fit: cover; ini sudah ada di CSS umum, tapi pastikan */
+                margin-left: 0; /* Hapus margin-left auto */
+                margin-top: 20px; /* Beri jarak dari teks di atasnya */
             }
         }
 
@@ -601,6 +628,18 @@
             }
             .service-text p, .service-text ul li {
                 font-size: 14px;
+            }
+            .layanan-hero {
+                padding: 40px 15px; /* Mengurangi padding hero lebih lanjut */
+            }
+            .layanan-main-container {
+                padding: 10px; /* Mengurangi padding container utama lebih lanjut */
+            }
+            .layanan-content-area {
+                padding: 15px 10px; /* Mengurangi padding konten utama lebih lanjut */
+            }
+            .service-text ul li {
+                padding-left: 15px; /* Sesuaikan padding bullet kustom jika terlalu jauh */
             }
         }
     </style>
@@ -735,97 +774,172 @@
                     </div>
                 </div>
             </section>
+            
 
             <p class="text-center mt-4"><em>Anda adalah prioritas kami</em></p>
         </main>
     </div>
 
+
+    
     <footer>
-        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
-    </footer>
+        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/privacy-policy">Kebijakan Privasi</a>
+            <a href="/terms-of-service">Syarat & Ketentuan</a>
+        </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // === CATEGORY FILTERING ===
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const propertyCategories = document.querySelectorAll('.property-category');
 
-    <script>
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetCategory = this.dataset.category;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileNav = document.getElementById('mobileNav');
-            const closeButton = document.getElementById('closeButton');
-            const mobileNavLinks = mobileNav.querySelectorAll('ul li a');
-            const body = document.body;
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
 
-            // Function to open the mobile menu
-            function openMobileMenu() {
-                mobileMenuOverlay.classList.add('active');
-                mobileNav.classList.add('active');
-                body.classList.add('menu-open'); // Add class to body to prevent scrolling
-            }
+                propertyCategories.forEach(category => category.classList.remove('active'));
 
-            // Function to close the mobile menu
-            function closeMobileMenu() {
-                mobileMenuOverlay.classList.remove('active');
-                mobileNav.classList.remove('active');
-                body.classList.remove('menu-open'); // Remove class from body
-            }
-
-            // Event listener for hamburger icon click
-            if (hamburgerMenu) {
-                hamburgerMenu.addEventListener('click', openMobileMenu);
-            }
-
-            // Event listener for close button click
-            if (closeButton) {
-                closeButton.addEventListener('click', closeMobileMenu);
-            }
-
-            // Event listener for overlay click to close menu
-            if (mobileMenuOverlay) {
-                mobileMenuOverlay.addEventListener('click', function(event) {
-                    // Close only if clicking directly on the overlay, not on the menu itself
-                    if (event.target === mobileMenuOverlay) {
-                        closeMobileMenu();
-                    }
-                });
-            }
-
-            // Event listener for mobile navigation links click to close menu
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
+                if (targetCategory === 'semua') {
+                    propertyCategories.forEach(category => category.classList.add('active'));
+                } else {
+                    document.getElementById(targetCategory).classList.add('active');
+                }
             });
+        });
 
-            // Handle window resize to close mobile menu if resized to desktop
-            window.addEventListener('resize', function() {
-                const desktopNav = document.querySelector('.main-nav');
-                // Check if desktopNav is visible and mobileMenu is active
-                if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+        const semuaBtn = document.querySelector('.category-btn[data-category="semua"]');
+        if (semuaBtn) {
+            semuaBtn.click();
+        }
+
+        // === MODAL FUNCTIONALITY ===
+        const modal = document.getElementById('propertyModal');
+        const closeButton = document.querySelector('.close-button');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalLocation = document.querySelector('#modalLocation span');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalAmenities = document.getElementById('modalAmenities');
+        const modalContactButton = document.getElementById('modalContactButton');
+        const cardButtons = document.querySelectorAll('.card-button');
+
+        cardButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.dataset.title;
+                const image = this.dataset.image;
+                const location = this.dataset.location;
+                const price = this.dataset.price;
+                const description = this.dataset.description;
+                let amenities = [];
+
+                try {
+                    amenities = JSON.parse(this.dataset.amenities);
+                } catch (e) {
+                    console.error('Invalid amenities JSON:', e);
+                }
+
+                modalImage.src = image;
+                modalImage.alt = title;
+                modalTitle.textContent = title;
+                modalLocation.textContent = location;
+                modalPrice.textContent = price;
+                modalDescription.textContent = description;
+
+                modalAmenities.innerHTML = '';
+                amenities.forEach(amenity => {
+                    const amenityItem = document.createElement('div');
+                    amenityItem.classList.add('modal-amenity-item');
+                    amenityItem.innerHTML = `<i class="${amenity.icon}"></i> ${amenity.text}`;
+                    modalAmenities.appendChild(amenityItem);
+                });
+
+                modalContactButton.href = `/contact?property=${encodeURIComponent(title)}`;
+
+                modal.classList.add('show');
+            });
+        });
+
+        closeButton.addEventListener('click', function() {
+            modal.classList.remove('show');
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        // === MOBILE MENU FUNCTIONALITY ===
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileCloseButton = document.getElementById('closeButton');
+        const mobileNavLinks = mobileNav ? mobileNav.querySelectorAll('ul li a') : [];
+        const body = document.body;
+
+        function openMobileMenu() {
+            mobileMenuOverlay.classList.add('active');
+            mobileNav.classList.add('active');
+            body.classList.add('menu-open');
+        }
+
+        function closeMobileMenu() {
+            mobileMenuOverlay.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+
+        if (hamburgerMenu) {
+            hamburgerMenu.addEventListener('click', openMobileMenu);
+        }
+
+        if (mobileCloseButton) {
+            mobileCloseButton.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', function(event) {
+                if (event.target === mobileMenuOverlay) {
                     closeMobileMenu();
                 }
             });
+        }
 
-            // Sidebar service content switching logic (existing from your code)
-            const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            const serviceSections = document.querySelectorAll('.service-section');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
 
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default link behavior
+        window.addEventListener('resize', function() {
+            const desktopNav = document.querySelector('.main-nav');
+            if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
 
-                    // Remove active class from all links and sections
-                    sidebarLinks.forEach(item => item.classList.remove('active'));
-                    serviceSections.forEach(section => section.classList.remove('active'));
+        // === SIDEBAR SERVICE SWITCHING ===
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const serviceSections = document.querySelectorAll('.service-section');
 
-                    // Add active class to the clicked link
-                    this.classList.add('active');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
 
-                    // Show the corresponding service section
-                    const targetId = this.dataset.target;
-                    const targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        targetSection.classList.add('active');
-                    }
-                });
+                sidebarLinks.forEach(item => item.classList.remove('active'));
+                serviceSections.forEach(section => section.classList.remove('active'));
+
+                this.classList.add('active');
+
+                const targetId = this.dataset.target;
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
             });
         });
-    </script>
-</body>
-</html>
+    });
+</script>

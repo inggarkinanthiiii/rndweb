@@ -6,7 +6,16 @@
     <title>About - Reka Nawa Dwelling (RND)</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Reset for Box Model - SANGAT PENTING UNTUK RESPONSIVITAS */
+        html {
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
         /* Variable Definitions */
         :root {
             --primary-color: #b40000;
@@ -24,13 +33,13 @@
             font-family: 'Inter', sans-serif;
             background: var(--light-bg);
             color: var(--text-dark);
-            overflow-x: hidden;
+            overflow-x: hidden; /* Pertahankan ini, tapi pastikan tidak ada yang meluber */
             line-height: 1.6;
-            font-size: 16px; /* Tambahkan ukuran font dasar */
+            font-size: 16px;
         }
 
         /* For preventing scroll when menu is open */
-        body.menu-open { /* Ubah dari .no-scroll menjadi .menu-open */
+        body.menu-open {
             overflow: hidden;
         }
 
@@ -53,9 +62,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: sticky; /* Make header sticky */
+            position: sticky;
             top: 0;
-            z-index: 900; /* Pastikan header di atas konten biasa tapi di bawah overlay/menu */
+            z-index: 900;
             animation: fadeInDown 1s ease-out forwards;
         }
 
@@ -66,7 +75,8 @@
         }
 
         .main-header .logo-area img {
-            height: 50px; /* Lebih besar dari sebelumnya */
+            height: 50px;
+            /* Pastikan gambar responsif secara default, sudah ditangani di global img rule */
         }
 
         .main-header .company-info {
@@ -83,28 +93,28 @@
         }
 
         .main-header .tagline {
-            font-size: 0.95rem; /* Sedikit lebih besar dari sebelumnya */
+            font-size: 0.95rem;
             color: #555;
             margin-top: 2px;
             font-weight: 500;
         }
 
         /* Desktop Navigation */
-        .main-nav { /* Ubah dari .desktop-nav menjadi .main-nav agar konsisten dengan home.html */
-            display: flex; /* Display by default for desktop */
+        .main-nav {
+            display: flex;
             gap: 25px;
         }
 
-        .main-nav a { /* Ubah dari .desktop-nav a menjadi .main-nav a */
+        .main-nav a {
             color: #555;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 0; /* Ubah padding untuk efek underline */
+            padding: 8px 0;
             position: relative;
             transition: color 0.3s ease;
         }
 
-        .main-nav a::after { /* Efek underline */
+        .main-nav a::after {
             content: '';
             position: absolute;
             width: 0;
@@ -115,37 +125,28 @@
             transition: width 0.3s ease;
         }
 
-        .main-nav a:hover, /* Ubah dari .desktop-nav a:hover menjadi .main-nav a:hover */
-        .main-nav a.active { /* Ubah dari .desktop-nav a.active menjadi .main-nav a.active */
+        .main-nav a:hover,
+        .main-nav a.active {
             color: var(--primary-color);
         }
 
-        .main-nav a:hover::after, /* Ubah dari .desktop-nav a:hover::after menjadi .main-nav a:hover::after */
-        .main-nav a.active::after { /* Ubah dari .desktop-nav a.active::after menjadi .main-nav a.active::after */
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
             width: 100%;
         }
 
         /* Hamburger Menu */
         .hamburger-menu {
-            display: none; /* Hidden by default, shown on mobile */
+            display: none;
             background: none;
             border: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 1001; /* Ensure it's above other content */
+            z-index: 1001;
         }
 
-        .hamburger-menu .bar { /* Ini tidak lagi digunakan, tapi biarkan dulu untuk jaga-jaga */
-            display: block;
-            width: 28px;
-            height: 3px;
-            background-color: var(--text-dark);
-            margin: 6px 0;
-            transition: 0.4s;
-        }
-        /* Style untuk Font Awesome icon di hamburger menu (jika menggunakan) */
         .hamburger-menu .fas {
-            font-size: 1.8em; /* Ukuran ikon hamburger */
+            font-size: 1.8em;
             color: var(--text-dark);
         }
 
@@ -153,20 +154,20 @@
         .mobile-nav {
             position: fixed;
             top: 0;
-            right: -280px; /* Start off-screen, sesuaikan dengan lebar */
-            width: 250px; /* Adjust width as needed */
+            right: -280px;
+            width: 250px; /* Lebar sidebar */
             height: 100%;
-            background-color: #333; /* Warna gelap untuk sidebar */
+            background-color: #333;
             box-shadow: -3px 0 10px rgba(0,0,0,0.4);
             z-index: 1000;
             transition: right 0.3s ease;
             display: flex;
             flex-direction: column;
-            box-sizing: border-box; /* Include padding in width */
+            /* box-sizing: border-box; <-- Tidak perlu jika sudah global */
         }
 
         .mobile-nav.active {
-            right: 0; /* Slide into view */
+            right: 0;
         }
 
         .mobile-nav-header {
@@ -251,19 +252,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Warna gelap transparan */
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 999;
-            display: none; /* Sembunyikan secara default */
-            opacity: 0; /* Dimulai dengan transparan penuh */
-            transition: opacity 0.3s ease; /* Transisi untuk fade in/out */
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .menu-overlay.active {
-            display: block; /* Tampilkan saat aktif */
-            opacity: 1; /* Fade in */
+            display: block;
+            opacity: 1;
         }
 
         /* Content shift when menu is open (optional, adjust if main content is wrapped) */
+        /* Perhatikan bahwa ini akan menggeser konten, jika itu yang diinginkan */
         body.menu-open .hero-banner,
         body.menu-open .container,
         body.menu-open footer {
@@ -274,6 +276,7 @@
 
         /* Hero Banner */
         .hero-banner {
+            
             width: 100%;
             height: 300px;
             background-image: url('{{ asset('assets/images/salaman.png') }}');
@@ -283,8 +286,8 @@
             flex-direction: column;
             justify-content: center;
             color: white;
-            padding-left: 10%;
-            box-sizing: border-box;
+            padding-left: 10%; /* Akan diatur ulang di media query */
+            box-sizing: border-box; /* Pastikan ini juga, meskipun sudah global */
             position: relative;
             z-index: 1;
         }
@@ -329,6 +332,7 @@
             max-width: 1200px;
             margin: auto;
             padding: 40px 20px;
+            /* box-sizing: border-box; <-- Tidak perlu jika sudah global */
         }
 
         /* Section Titles and Underlines */
@@ -350,8 +354,9 @@
         }
 
         .underline.yellow {
-            background-color: var(--secondary-color);
+            height: 4px; /* Konsistenkan dengan .underline */
             width: 120px;
+            background-color: var(--secondary-color);
             margin-top: 5px;
             animation: fadeInUp 1.2s ease-out forwards;
         }
@@ -365,7 +370,9 @@
         }
 
         .brief-icon img {
-            height: 50px;
+            width: auto;
+            max-width: 90%;
+            border: 1px solid blue;
         }
 
         .brief-text h3 {
@@ -389,9 +396,9 @@
         .highlight-left {
             background: var(--primary-color);
             color: white;
-            flex: 1;
+            flex: 1; /* Allow to grow */
             padding: 30px;
-            min-width: 250px;
+            min-width: 250px; /* Biarkan ini untuk desktop, akan di-reset di mobile */
             position: relative;
         }
 
@@ -411,17 +418,20 @@
 
         .highlight-left img {
             margin-top: 50px;
-            width: 250px;
+            width: 250px; /* Ukuran tetap untuk desktop */
+            height: auto; /* Penting untuk rasio aspek */
+            max-width: 100%; /* Agar tidak meluber di dalam .highlight-left itu sendiri */
         }
 
         .highlight-right {
-            flex: 2;
-            min-width: 300px;
+            flex: 2; /* Allow to grow more than left */
+            min-width: 300px; /* Biarkan ini untuk desktop, akan di-reset di mobile */
         }
 
         .highlight-right img {
             width: 100%;
             height: auto;
+            display: block; /* Menghilangkan spasi ekstra di bawah gambar */
         }
 
         /* Vision & Mission Section */
@@ -444,20 +454,21 @@
 
         .mission-text-content {
             flex: 1;
-            min-width: 450px;
+            min-width: 450px; /* Biarkan ini untuk desktop */
         }
 
         .mission-illustration {
-            flex: 0 0 450px;
+            flex: 0 0 450px; /* Ini akan di-reset di media query */
             max-width: 100%;
             animation: fadeInUp 1.6s ease-out forwards;
-            margin-top: 40px;
+            margin-top: 40px; /* Akan disesuaikan di mobile */
         }
 
         .mission-illustration img {
             width: 100%;
             height: auto;
             border-radius: 8px;
+            display: block;
         }
 
         .mission-list {
@@ -481,6 +492,7 @@
             font-weight: bold;
             color: var(--primary-color);
             margin-right: 15px;
+            flex-shrink: 0; /* Pastikan nomor tidak menyusut */
         }
 
         /* CTA Section */
@@ -543,6 +555,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .yellow-strip {
@@ -554,32 +567,46 @@
             left: 0;
         }
 
-        /* Footer */
+  
         footer {
             background: var(--dark-bg);
-            color: white;
+            color: var(--text-light);
             text-align: center;
-            padding: 20px;
-            margin-top: 60px;
+            padding: 30px; /* Sedikit lebih tinggi */
+            margin-top: 0; /* Adjust margin as new section will be before it */
             animation: fadeInUp 2.1s ease-out forwards;
+            font-size: 0.95em;
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+        footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: white;
         }
 
-        /* Responsive adjustments */
+        /* RESPONSIVE ADJUSTMENTS */
+        /* Tablet ke bawah (lebar maks 992px) */
         @media (max-width: 992px) {
             .main-header {
-                padding: 15px 20px; /* Adjust padding for smaller screens */
+                padding: 15px 20px;
             }
 
-            .main-nav { /* Sembunyikan desktop nav di layar yang lebih kecil */
-                display: none;
+            .main-nav {
+                display: none; /* Sembunyikan desktop nav di layar yang lebih kecil */
             }
 
-            .hamburger-menu { /* Tampilkan hamburger di layar yang lebih kecil */
-                display: block;
+            .hamburger-menu {
+                display: block; /* Tampilkan hamburger di layar yang lebih kecil */
             }
 
             .hero-banner {
-                padding-left: 5%;
+                padding-left: 5%; /* Sesuaikan padding untuk layar lebih kecil */
                 height: 250px;
             }
 
@@ -599,7 +626,7 @@
             .highlight-section,
             .mission-section-with-image,
             .priority-section {
-                flex-direction: column;
+                flex-direction: column; /* Ubah tata letak menjadi tumpukan vertikal */
             }
 
             .highlight-left,
@@ -608,8 +635,11 @@
             .mission-illustration,
             .priority-text,
             .priority-image {
-                min-width: unset;
-                width: 100%;
+                min-width: unset; /* Hapus batasan min-width */
+                width: 100%;     /* Ambil lebar penuh */
+                flex-basis: auto; /* SANGAT PENTING: Reset flex-basis dari nilai tetap */
+                flex-grow: 1;    /* Biarkan elemen tumbuh */
+                flex-shrink: 1;  /* Biarkan elemen menyusut */
             }
 
             .highlight-left {
@@ -619,6 +649,8 @@
 
             .highlight-left img {
                 margin-top: 30px;
+                width: auto; /* Biarkan menyesuaikan diri */
+                max-width: 80%; /* Jika gambar logonya masih terlalu besar */
             }
 
             .mission-illustration {
@@ -628,8 +660,13 @@
             .mission-list li {
                 align-items: flex-start;
             }
+
+            .mission-list li::before {
+                font-size: 20px; /* Kecilkan ukuran nomor di list */
+            }
         }
 
+        /* Ponsel (lebar maks 576px) */
         @media (max-width: 576px) {
             .main-header {
                 padding: 10px 15px;
@@ -643,11 +680,12 @@
             }
 
             .main-header .logo-area {
-                gap: 5px; /* Adjust gap for smaller screens */
+                gap: 5px;
             }
 
             .hero-banner {
                 height: 200px;
+                padding-left: 3%; /* Sesuaikan lagi untuk layar sangat kecil */
             }
 
             .hero-banner .page-title {
@@ -666,6 +704,14 @@
                 font-size: 16px;
                 padding: 30px 15px;
             }
+
+            .container {
+                padding: 30px 15px; /* Sesuaikan padding agar tidak terlalu mepet */
+            }
+
+            .cta h2 {
+                font-size: 1.8em; /* Kecilkan ukuran font CTA */
+            }
         }
     </style>
 </head>
@@ -682,7 +728,8 @@
             </div>
         </div>
         <button class="hamburger-menu" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i> </button>
+            <i class="fas fa-bars"></i>
+        </button>
 
         <nav class="main-nav">
             <a href="/home">Home</a>
@@ -704,7 +751,8 @@
                 <span class="logo-text-sidebar">Reka Nawa Dwelling</span>
             </a>
             <button class="close-menu" aria-label="Close navigation">
-                <i class="fas fa-times close-icon"></i> </button>
+                <i class="fas fa-times close-icon"></i>
+            </button>
         </div>
         <ul>
             <li><a href="/home">Home</a></li>
@@ -790,8 +838,11 @@
     </div>
 
     <footer>
-        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling</p>
-    </footer>
+        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/privacy-policy">Kebijakan Privasi</a>
+            <a href="/terms-of-service">Syarat & Ketentuan</a>
+        </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -805,7 +856,7 @@
             function toggleMobileMenu() {
                 mobileNav.classList.toggle('active');
                 menuOverlay.classList.toggle('active');
-                body.classList.toggle('menu-open'); // Menggunakan class menu-open
+                body.classList.toggle('menu-open');
             }
 
             // Event Listeners
@@ -824,16 +875,16 @@
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     if (mobileNav.classList.contains('active')) {
-                        toggleMobileMenu(); // Close the menu if it's open
+                        toggleMobileMenu();
                     }
                 });
             });
 
             // Handle window resize to ensure correct menu state
             window.addEventListener('resize', function() {
-                const desktopNav = document.querySelector('.main-nav'); // Menggunakan .main-nav
+                const desktopNav = document.querySelector('.main-nav');
                 if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
-                    toggleMobileMenu(); // Close mobile menu if it's open and now on desktop
+                    toggleMobileMenu();
                 }
             });
         });

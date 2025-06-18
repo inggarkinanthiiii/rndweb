@@ -73,7 +73,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
             animation: fadeInDown 1s ease-out forwards; /* Animasi untuk header */
             position: relative; /* Untuk z-index */
-            z-index: 1000; /* Pastikan di atas konten lain */
+            z-index: 100; /* Pastikan di atas konten lain */
         }
 
         .main-header .logo-area {
@@ -341,7 +341,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: var(--primary-color); /* Warna merah untuk header mobile menu */
+            background-color: white; /* Warna merah untuk header mobile menu */
             color: white;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -353,22 +353,28 @@
         }
 
         .mobile-nav-header .logo-area-mobile img {
-            height: 35px; /* Ukuran logo di mobile menu header */
+            height: 40px; /* Ukuran logo di mobile menu header */
         }
 
         .mobile-nav-header .company-name-mobile {
             font-family: 'Poppins', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--primary-color);
         }
 
         .mobile-nav .close-button {
-            font-size: 30px;
+            font-size: 40px;
             cursor: pointer;
-            color: white;
-            padding: 5px 10px;
+            color: black; /* Teks 'X' hitam */
+            background-color: white; /* Latar belakang tombol 'X' putih */
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
             transition: background-color 0.3s ease;
         }
 
@@ -396,8 +402,9 @@
 
         .mobile-nav ul li a:hover,
         .mobile-nav ul li a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--secondary-color); /* Emas saat aktif/hover */
+            background-color: rgba(247, 4, 4, 0.96);
+            color: white;
+            font-weight: 600;
         }
 
         /* Responsiveness */
@@ -662,6 +669,9 @@
             .contact-hero .hero-content h1 {
                 font-size: 2.5rem; /* Kecilkan ukuran font untuk mobile */
             }
+            .contact-rnd-column h3 {
+                font-size: 2.5rem; /* Ukuran judul lebih kecil */
+            }
         }
 
         @media (max-width: 576px) { /* Lebih granular mobile adjustments */
@@ -725,8 +735,7 @@
         <nav class="main-nav">
             <a href="/home">Home</a>
             <a href="/about">About</a>
-            <a href="/layanan" class="active">Layanan</a>
-            <a href="/portfolio">Portfolio</a>
+            <a href="/layanan">Layanan</a> <a href="/portfolio">Portfolio</a>
             <a href="/property">Property</a>
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
@@ -748,8 +757,7 @@
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="/layanan" class="active">Layanan</a></li>
-            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/layanan">Layanan</a></li> <li><a href="/portfolio">Portfolio</a></li>
             <li><a href="/property">Property</a></li>
             <li><a href="/homestay">Homestay</a></li>
             <li><a href="/contact">Contact</a></li>
@@ -843,6 +851,7 @@
             const closeButton = document.getElementById('closeButton');
             // Check if mobileNav exists before querying its children
             const mobileNavLinks = mobileNav ? mobileNav.querySelectorAll('ul li a') : [];
+            const desktopNavLinks = document.querySelectorAll('.main-nav a'); // Tambahkan ini
             const body = document.body;
 
             // Function to open the mobile menu
@@ -893,6 +902,54 @@
                     closeMobileMenu();
                 }
             });
+
+            // ======================================================
+            // BAGIAN PENTING UNTUK MEMPERBAIKI MASALAH 'ACTIVE' LINK
+            // ======================================================
+            function setActiveLink() {
+                let currentPath = window.location.pathname;
+
+                // Normalisasi path: Hapus trailing slash jika ada, kecuali untuk root "/"
+                if (currentPath.endsWith('/') && currentPath.length > 1) {
+                    currentPath = currentPath.slice(0, -1);
+                }
+                // Jika currentPath kosong atau hanya "/", set ke "/home" (sesuaikan jika home Anda berbeda)
+                // Ini penting agar link home aktif ketika di root URL
+                if (currentPath === '' || currentPath === '/') {
+                    currentPath = '/home'; // Asumsi home page Anda diakses dengan /home atau /
+                }
+
+                const allNavLinks = [...mobileNavLinks, ...desktopNavLinks]; // Gabungkan kedua NodeList
+
+                allNavLinks.forEach(link => {
+                    let linkHref = link.getAttribute('href');
+
+                    // Normalisasi linkHref juga
+                    if (linkHref && linkHref.endsWith('/') && linkHref.length > 1) {
+                        linkHref = linkHref.slice(0, -1);
+                    }
+
+                    // Hapus kelas 'active' dari semua link sebelum mengecek
+                    link.classList.remove('active');
+
+                    // Periksa kecocokan URL
+                    // Kasus khusus untuk Home: Jika linkHref adalah "/" atau "/home" dan currentPath juga "/home" atau "/"
+                    if ((linkHref === '/home' && currentPath === '/home') || (linkHref === '/' && currentPath === '/home')) {
+                        link.classList.add('active');
+                    }
+                    // Untuk link lainnya, cocokkan secara persis
+                    else if (linkHref === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Panggil fungsi setActiveLink saat DOMContentLoaded
+            setActiveLink();
+            // ======================================================
+            // AKHIR BAGIAN PERBAIKAN 'ACTIVE' LINK
+            // ======================================================
+
 
             // Sidebar service content switching logic (existing from your code)
             // Added null check for sidebarLinks and serviceSections as they might not exist on this page

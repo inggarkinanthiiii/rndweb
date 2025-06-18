@@ -551,6 +551,29 @@
             animation: fadeInUp 2.4s ease-out forwards;
             font-size: 0.9rem;
         }
+         
+        footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px; /* Sedikit lebih tinggi */
+            margin-top: 0; /* Adjust margin as new section will be before it */
+            animation: fadeInUp 2.1s ease-out forwards;
+            font-size: 0.95em;
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+        footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: white;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .main-header {
@@ -890,10 +913,13 @@
             </div>
         </div>
     </div>
-
+   
     <footer>
-        <p>&copy; {{ date('Y') }} REKANAWADWELLING. All rights reserved.</p>
-    </footer>
+        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/privacy-policy">Kebijakan Privasi</a>
+            <a href="/terms-of-service">Syarat & Ketentuan</a>
+        </div>
 
     {{-- MODAL (LIGHTBOX) --}}
     <div class="modal-overlay" id="portfolioModal">

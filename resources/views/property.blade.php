@@ -28,6 +28,11 @@
             overflow-x: hidden;
             animation: fadeInBody 1s ease forwards;
         }
+        
+        body.menu-open { /* Tambahkan ini untuk mencegah scrolling saat menu terbuka */
+            overflow: hidden;
+        }
+
 
         /* Fade-in animasi untuk body */
         @keyframes fadeInBody {
@@ -72,11 +77,11 @@
         .main-header .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
         }
 
         .main-header .logo-area img {
-            height: 40px;
+            height: 60px;
         }
 
         .main-header .company-info {
@@ -84,16 +89,17 @@
             flex-direction: column;
         }
 
-        .main-header .company-name {
+       .main-header .company-name {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
+            margin-top: 5px;
             color: var(--primary-color);
             line-height: 1;
         }
 
         .main-header .tagline {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #555;
             margin-top: 2px;
             font-weight: 500;
@@ -117,83 +123,155 @@
         .main-header .main-nav a.active {
             color: var(--primary-color);
         }
-
-        /* HERO SECTION UNTUK HALAMAN PROPERTY */
-        .property-hero {
-            position: relative;
-            width: 100%;
-            min-height: 350px;
-            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Ganti dengan gambar hero Anda */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-            box-sizing: border-box;
-            overflow: hidden;
-            text-align: left;
+        
+        /* --- HAMBURGER MENU & MOBILE NAV BARU --- */
+        .hamburger-menu {
+            display: none; /* Sembunyikan secara default */
+            font-size: 28px; /* Ukuran icon hamburger */
+            cursor: pointer;
+            color: var(--text-dark);
+            z-index: 1001;
         }
 
-        .property-hero::after {
-            content: '';
-            position: absolute;
+        .mobile-menu-overlay {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* Opasitas overlay */
-            z-index: 0;
+            height: 100%vh;
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+            z-index: 2000; /* Di bawah mobile-nav */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            display: none; /* default hidden */
         }
 
-        .property-hero .hero-content {
+        .mobile-menu-overlay.active {
+            display: block; /* Tampilkan overlay saat aktif */
+            opacity: 1;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -320px; /* Sembunyikan di luar layar */
+            width: 300px; /* Lebar menu slide-in */
+            height: 100%;
+            background-color: #333; /* Warna background menu mobile sesuai gambar */
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2100;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 0; /* Hapus padding default */
+        }
+
+        .mobile-nav.active {
+            right: 0; /* Geser ke dalam layar */
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px 20px;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-nav-header .logo-area-mobile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-nav-header .logo-area-mobile img {
+            height: 35px; /* Ukuran logo di menu mobile */
+        }
+
+        .mobile-nav-header .company-name-mobile {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .close-button {
+            font-size: 40px;
+            color: black; /* Warna tombol close */
+            cursor: pointer;
+            margin-left: auto; /* Dorong ke kanan */
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Agar daftar mengisi sisa ruang */
+        }
+
+        .mobile-nav li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a {
+            display: block;
+            color: white; /* Warna teks link di menu mobile */
+            text-decoration: none;
+            font-weight: 500;
+            padding: 15px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            background-color: var(--primary-color); /* Warna latar belakang saat hover/aktif */
+            color: white;
+        }
+        /* --- AKHIR HAMBURGER MENU & MOBILE NAV BARU --- */
+
+
+        /* HERO SECTION UNTUK HALAMAN PROPERTY */
+         .hero-banner {
+            width: 100%;
+            height: 300px; /* Adjust height as needed */
+            background-image: url('{{ asset('assets/images/salaman.png') }}'); /* Using the provided image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            padding-left: 10%;
+            box-sizing: border-box;
             position: relative;
             z-index: 1;
-            color: var(--text-light);
-            opacity: 0;
-            animation: fadeInLeft 1.2s ease-out forwards;
-            max-width: 1200px;
-            margin-left: 0;
-            margin-right: auto;
-            padding-left: 10px;
         }
 
-        .property-hero .hero-content .breadcrumb {
-            font-size: 0.95rem;
-            margin-bottom: 10px;
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: -1;
         }
 
-        .property-hero .hero-content .breadcrumb a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .property-hero .hero-content .breadcrumb a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .property-hero .hero-content .breadcrumb span {
-            color: white;
-            font-weight: 600;
-        }
-
-        .property-hero .hero-content h1 {
+        .hero-banner .page-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 4rem;
+            font-size: 3em;
             font-weight: 700;
             margin: 0;
-            line-height: 1.1;
-            color: white; /* Judul utama putih */
-        }
-
-        .property-hero .hero-content p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            max-width: 600px;
-            animation: fadeInUp 1.5s ease forwards;
-            animation-delay: 0.6s;
+            animation: fadeInUp 1s ease-out forwards;
         }
 
         /* MAIN CONTENT - PROPERTI LISTING */
@@ -658,44 +736,58 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
-
-        /* FOOTER */
+ 
         footer {
             background: var(--dark-bg);
-            color: white;
+            color: var(--text-light);
             text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-            animation: fadeInUp 2.8s ease forwards;
-            opacity: 0;
+            padding: 30px; /* Sedikit lebih tinggi */
+            margin-top: 0; /* Adjust margin as new section will be before it */
+            animation: fadeInUp 2.1s ease-out forwards;
+            font-size: 0.95em;
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+        footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        footer .footer-links a:hover {
+            color: white;
         }
 
+
         /* RESPONSIVE */
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .main-header {
-                flex-direction: column;
-                text-align: center;
                 padding: 15px 20px;
+                flex-direction: row;
+                justify-content: space-between;
             }
-            .main-header .logo-area {
-                flex-direction: column;
-                margin-bottom: 15px;
-            }
+                      
             .main-header .main-nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                display: none; /* Sembunyikan navigasi desktop di mobile */
+            }
+            .hamburger-menu {
+                display: block; /* Tampilkan ikon hamburger di mobile */
+            }
+             
+            .main-header .logo-area {
+                flex-direction: row;
+                margin-bottom: 0;
+            }
+          
+
+            .hero-banner {
+                padding-left: 5%;
+                height: 250px;
             }
 
-            .property-hero {
-                padding: 0 20px;
-                min-height: 280px;
-            }
-            .property-hero .hero-content h1 {
-                font-size: 3rem;
-            }
-            .property-hero .hero-content p {
-                font-size: 1rem;
+            .hero-banner .page-title {
+                font-size: 2.5em;
             }
 
             .property-listing-section,
@@ -744,11 +836,12 @@
                 padding: 6px 10px;
                 font-size: 0.9rem;
             }
-            .property-hero .hero-content h1 {
-                font-size: 2.2rem;
+            .hero-banner {
+                height: 200px;
             }
-            .property-hero .hero-content p {
-                font-size: 0.9rem;
+
+            .hero-banner .page-title {
+                font-size: 2em;
             }
             .property-listing-section h2,
             .about-rnd-property h2,
@@ -963,7 +1056,7 @@
         <div class="logo-area">
             <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
             <div class="company-info">
-                <div class="company-name">RND Properti</div>
+                <div class="company-name">Reka Nawa Dwelling</div>
                 <div class="tagline">Contractor & Consultant</div>
             </div>
         </div>
@@ -976,18 +1069,34 @@
             <a href="/homestay">Homestay</a>
             <a href="/contact">Contact</a>
         </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
 
-    <section class="property-hero">
-        <div class="hero-content">
-            <div class="breadcrumb">
-                <a href="/home">Home</a> > <span>Property</span>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div> <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo-area-mobile">
+                <img src="{{ asset('assets/images/Logo.png') }}" alt="RND Logo">
+                <div class="company-name-mobile">Reka Nawa Dwelling</div>
             </div>
-            <h1>Temukan Properti Impian Anda</h1>
-            <p>Jelajahi pilihan properti residensial, komersial, dan investasi terbaik dari RND Properti.</p>
+            <div class="close-button" id="closeButton">&times;</div>
         </div>
-    </section>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/layanan">Layanan</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/property"class="active">Property</a></li>
+            <li><a href="/homestay">Homestay</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
 
+
+     <div class="hero-banner">
+        <div class="page-title">Property</div>
+    </div>
     <section class="property-listing-section">
         <h2>Pilihan Properti Unggulan</h2>
         <p class="intro-text">Ada beberapa jenis properti di RND Properti yang siap memenuhi kebutuhan Anda, mulai dari investasi jangka panjang hingga hunian nyaman.</p>
@@ -1015,8 +1124,8 @@
                         <div class="amenities">
                             <div class="amenity-item"><i class="fas fa-ruler-combined"></i> 5000 sqm</div>
                             <div class="amenity-item"><i class="fas fa-road"></i> Main Road Access</div>
-                        </div> 
-                        <div class="price">Rp 50 Juta/m²</div> 
+                        </div>
+                        <div class="price">Rp 50 Juta/m²</div>
                         <button class="card-button"
                             data-title="Prime Commercial Land"
                             data-image="{{ asset('assets/images/proper1.png') }}"
@@ -1242,10 +1351,13 @@
         <p>Jangan lewatkan kesempatan untuk memiliki properti terbaik. Hubungi RND Properti hari ini untuk konsultasi gratis!</p>
         <a href="/contact" class="cta-button">Hubungi Kami Sekarang</a>
     </section>
-
+   
     <footer>
-        <p>&copy; 2025 RND Properti. All rights reserved.</p>
-    </footer>
+        <p>&copy; {{ date('Y') }} Reka Nawa Dwelling. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/privacy-policy">Kebijakan Privasi</a>
+            <a href="/terms-of-service">Syarat & Ketentuan</a>
+        </div>
 
     <div id="propertyModal" class="modal">
         <div class="modal-content">
@@ -1261,99 +1373,149 @@
         </div>
     </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Category filtering
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const propertyCategories = document.querySelectorAll('.property-category');
+    // ==== 1. Category filtering ====
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const propertyCategories = document.querySelectorAll('.property-category');
 
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const targetCategory = this.dataset.category;
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetCategory = this.dataset.category;
 
-                    // Remove active from all buttons
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active to the clicked button
-                    this.classList.add('active');
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
 
-                    // Hide all categories
-                    propertyCategories.forEach(category => category.classList.remove('active'));
+            propertyCategories.forEach(category => category.classList.remove('active'));
 
-                    // Show the target category or all if "Semua Properti" is clicked
-                    if (targetCategory === 'semua') {
-                        propertyCategories.forEach(category => category.classList.add('active'));
-                    } else {
-                        document.getElementById(targetCategory).classList.add('active');
-                    }
-                });
-            });
-
-            // Initially activate "Semua Properti" and show all categories
-            // This is handled by the "category-buttons" div containing two rows,
-            // so we need to ensure the correct behavior for "Semua Properti"
-            const semuaBtn = document.querySelector('.category-btn[data-category="semua"]');
-            if (semuaBtn) {
-                semuaBtn.click(); // Simulate a click to show all initially
-            }
-
-
-            // Modal functionality
-            const modal = document.getElementById('propertyModal');
-            const closeButton = document.querySelector('.close-button');
-            const modalImage = document.getElementById('modalImage');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalLocation = document.querySelector('#modalLocation span');
-            const modalPrice = document.getElementById('modalPrice');
-            const modalDescription = document.getElementById('modalDescription');
-            const modalAmenities = document.getElementById('modalAmenities');
-            const modalContactButton = document.getElementById('modalContactButton');
-            const cardButtons = document.querySelectorAll('.card-button');
-
-            cardButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const title = this.dataset.title;
-                    const image = this.dataset.image;
-                    const location = this.dataset.location;
-                    const price = this.dataset.price;
-                    const description = this.dataset.description;
-                    const amenities = JSON.parse(this.dataset.amenities); // Parse JSON string
-
-                    modalImage.src = image;
-                    modalImage.alt = title;
-                    modalTitle.textContent = title;
-                    modalLocation.textContent = location;
-                    modalPrice.textContent = price;
-                    modalDescription.textContent = description;
-
-                    // Clear previous amenities
-                    modalAmenities.innerHTML = '';
-                    // Populate amenities
-                    amenities.forEach(amenity => {
-                        const amenityItem = document.createElement('div');
-                        amenityItem.classList.add('modal-amenity-item');
-                        amenityItem.innerHTML = `<i class="${amenity.icon}"></i> ${amenity.text}`;
-                        modalAmenities.appendChild(amenityItem);
-                    });
-
-                    // You might want to customize the contact link based on the property
-                    modalContactButton.href = `/contact?property=${encodeURIComponent(title)}`;
-
-                    modal.classList.add('show');
-                });
-            });
-
-            closeButton.addEventListener('click', function() {
-                modal.classList.remove('show');
-            });
-
-            window.addEventListener('click', function(event) {
-                if (event.target == modal) {
-                    modal.classList.remove('show');
+            if (targetCategory === 'semua') {
+                propertyCategories.forEach(category => category.classList.add('active'));
+            } else {
+                const targetElement = document.getElementById(targetCategory);
+                if (targetElement) {
+                    targetElement.classList.add('active');
                 }
-            });
+            }
         });
-    </script>
+    });
 
+    const semuaBtn = document.querySelector('.category-btn[data-category="semua"]');
+    if (semuaBtn) {
+        semuaBtn.click();
+    }
+
+    // ==== 2. Modal property ====
+    const modal = document.getElementById('propertyModal');
+    const closeButton = document.querySelector('.close-button');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalLocation = document.querySelector('#modalLocation span');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalAmenities = document.getElementById('modalAmenities');
+    const modalContactButton = document.getElementById('modalContactButton');
+    const cardButtons = document.querySelectorAll('.card-button');
+
+    cardButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const title = this.dataset.title;
+            const image = this.dataset.image;
+            const location = this.dataset.location;
+            const price = this.dataset.price;
+            const description = this.dataset.description;
+            const amenities = JSON.parse(this.dataset.amenities);
+
+            modalImage.src = image;
+            modalImage.alt = title;
+            modalTitle.textContent = title;
+            modalLocation.textContent = location;
+            modalPrice.textContent = price;
+            modalDescription.textContent = description;
+
+            modalAmenities.innerHTML = '';
+            amenities.forEach(amenity => {
+                const amenityItem = document.createElement('div');
+                amenityItem.classList.add('modal-amenity-item');
+                amenityItem.innerHTML = `<i class="${amenity.icon}"></i> ${amenity.text}`;
+                modalAmenities.appendChild(amenityItem);
+            });
+
+            modalContactButton.href = `/contact?property=${encodeURIComponent(title)}`;
+
+            modal.classList.add('show');
+        });
+    });
+
+    // Close modal by close button
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            modal.classList.remove('show');
+        });
+    }
+
+    // Close modal by clicking outside (on modal overlay)
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+
+    // ==== 3. Mobile Menu ====
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeButtonMobileMenu = document.getElementById('closeButton');
+    const mobileNavLinks = mobileNav.querySelectorAll('ul li a');
+    const body = document.body;
+
+    if (hamburgerMenu) {
+        hamburgerMenu.addEventListener('click', function() {
+            mobileMenuOverlay.classList.add('active');
+            mobileNav.classList.add('active');
+            body.classList.add('menu-open');
+        });
+    }
+
+    if (closeButtonMobileMenu) {
+        closeButtonMobileMenu.addEventListener('click', function() {
+            mobileMenuOverlay.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.classList.remove('menu-open');
+        });
+    }
+
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', function(event) {
+            if (event.target === mobileMenuOverlay) {
+                mobileMenuOverlay.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    }
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileNavLinks.forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
+            mobileMenuOverlay.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.classList.remove('menu-open');
+        });
+    });
+
+    window.addEventListener('resize', function() {
+        const desktopNav = document.querySelector('.main-nav');
+        if (desktopNav && getComputedStyle(desktopNav).display !== 'none' && mobileNav.classList.contains('active')) {
+            mobileMenuOverlay.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+    });
+
+});
+
+</script>
 </body>
 </html>
