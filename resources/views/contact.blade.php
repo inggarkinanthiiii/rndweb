@@ -103,7 +103,7 @@
 
         .main-header .main-nav {
             display: flex;
-            gap: 25px; /* Jarak antara item navigasi */
+            gap: 15px; /* Jarak antara item navigasi */
         }
 
         .main-header .main-nav a {
@@ -284,14 +284,92 @@
 
         /* FOOTER */
         footer {
-            background: var(--dark-bg); /* Menggunakan variabel */
-            color: white;
+            background: var(--dark-bg);
+            color: var(--text-light);
             text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-            animation: fadeInUp 2.2s ease forwards;
-            opacity: 0;
+            padding: 7px; /* Sedikit lebih tinggi */
+            margin-top: 20; /* Adjust margin as new section will be before it */
+            animation: fadeInUp 2.1s ease-out forwards;
+            font-size: 0.8em;
         }
+
+        .custom-button {
+            width: 150px;
+            height: 50x;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+
+
+        .custom-button:hover {
+        transform: scale(1.05);
+        }
+
+         .floating-menu {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: grab;
+
+        }
+        .inner-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        }
+
+
+        .floating-menu button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        width: 55px;
+        height: 55px;
+        font-size: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+
+        .social-icons {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        bottom: 150px; /* muncul di atas tombol */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 50px;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        object-fit: cover;
+        gap: 5px;
+        align-items: center;
+        transition: transform 0.2s ease;
+        }
+
+
+        .social-icons img {
+        width: 150px;
+        height: 40px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        }
+
+        .social-icons img:hover {
+        transform: scale(1.1);
+        }
+
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -385,7 +463,6 @@
             <a href="/layanan">Layanan</a>
             <a href="/portfolio">Portfolio</a>
             <a href="/property">Property</a>
-            <a href="/homestay">Homestay</a>
             <a href="/contact" class="active">Contact</a>
         </nav>
     </header>
@@ -402,14 +479,14 @@
         <p>Silakan isi form berikut untuk menghubungi kami atau mengirimkan pertanyaan Anda.</p>
 
         <div class="contact-wrapper">
-            <form action="/contact/send" method="POST">
-                @csrf
-                <input type="text" name="name" placeholder="Nama Lengkap" required />
-                <input type="email" name="email" placeholder="Email" required />
-                <input type="text" name="subject" placeholder="Subjek" required />
-                <textarea name="message" rows="6" placeholder="Pesan Anda" required></textarea>
-                <button type="submit">Kirim Pesan</button>
-            </form>
+                <form action="/contact/send" method="POST">
+                    @csrf
+                    <input type="text" name="name" placeholder="Nama Lengkap" required />
+                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="text" name="subject" placeholder="Subjek" required />
+                    <textarea name="message" rows="6" placeholder="Pesan Anda" required></textarea>
+                    <button type="submit">Kirim Pesan</button>
+                </form>
 
             <div class="map-container" title="Hover untuk zoom peta">
                 <iframe
@@ -425,8 +502,26 @@
         <div class="contact-info">
             <h4>Informasi Kontak</h4>
             <p><strong>Alamat:</strong> Jl. Pacar, Baciro Baru, Gondokusuman, Yogyakarta, DIY</p>
-            <p><strong>Email:</strong> info@contoh.com</p>
-            <p><strong>Telepon:</strong> +62 812-3456-7890</p>
+            <p><strong>Email:</strong> officialrnd.09@gmail.com</p>
+            <p><strong>Telepon:</strong> +6282223240324</p>
+        </div>
+    </div>
+
+    <div id="floatingContainer" class="floating-menu">
+        <div class="inner-wrapper">
+            <div class="social-icons" id="socialIcons">
+            <a href="https://wa.me/6285147652009?text=Halo%20saya%20ingin%20bertanya%20tentang%20kerja%20sama" target="_blank">
+                <img src="{{ asset('assets/images/kerjasama.png') }}" alt="WA">
+            </a>
+            <a href="https://wa.me/6282223240324?text=Halo%20saya%20ingin%20konsultasi%20tentang%20.......%20" target="_blank">
+                <img src="{{ asset('assets/images/konsultasi.png') }}" alt="WA">
+            </a>
+            <a href="https://instagram.com/officialrnd09" target="_blank">
+                <img src="{{ asset('assets/images/instagram (2).png') }}"alt="IG">
+            </a>
+            </div>
+            <img id="toggleButton" src="{{ asset('assets/images/hubungikami.png') }}" alt="Toggle" class="custom-button">
+
         </div>
     </div>
 
@@ -434,5 +529,21 @@
         <p>&copy; {{ date('Y') }} REKANAWADWELLING. All rights reserved.</p>
     </footer>
 
+     <script>
+    const toggleButton = document.getElementById('toggleButton');
+    const socialIcons = document.getElementById('socialIcons');
+
+    // Toggle tombol sosial
+    toggleButton.addEventListener('click', () => {
+        socialIcons.style.display = socialIcons.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Inisialisasi saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+        createDots();
+        showSlide(currentSlide);
+        startSlideShow();
+    });
+  </script>
 </body>
 </html>
